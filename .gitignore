@@ -1,0 +1,11 @@
+# idea config
+*.iml
+.idea
+
+# models
+*.WLNet
+*.WMLF
+*.WXF
+
+# Notebook
+*.nb
