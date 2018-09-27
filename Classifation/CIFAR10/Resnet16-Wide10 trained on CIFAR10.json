@@ -1,0 +1,36 @@
+[
+	"Association",
+	[
+		"Rule",
+		"'NetInfomation'",
+		[
+			"List",
+			["Rule","'Input'",["List",3,32,32]],
+			["Rule","'ParametersCount'",17125702],
+			["Rule","'ModelSize'",["Quantity",6.8502808e1,"'Megabytes'"]],
+			["Rule","'Nodes'",53]
+		]
+	],
+	[
+		"Rule",
+		"'TrainingSet'",
+		[
+			"Association",
+			["Rule","'Date'",["DateObject",["List",2018,9,26,22,13,"51.0982915"],"'Instant'","'Gregorian'",8.0]],
+			["Rule","'Number'",50000],
+			["Rule","'Losses'",["List",["Rule","'pLoss'",3.851363193690777e-3],["Rule","'TCE'",1.9587611848801316e2],["Rule","'Top-1'",49998],["Rule","'Top-2'",50000],["Rule","'Top-3'",50000],["Rule","'Top-5'",50000]]],
+			["Rule","'Time'",["Quantity",5.88554267e1,"'Seconds'"]]
+		]
+	],
+	[
+		"Rule",
+		"'TestingSet'",
+		[
+			"Association",
+			["Rule","'Date'",["DateObject",["List",2018,9,26,22,15,"0.5809572"],"'Instant'","'Gregorian'",8.0]],
+			["Rule","'Number'",10000],
+			["Rule","'Losses'",["List",["Rule","'pLoss'",4.629780641681718e-2],["Rule","'TCE'",1.1529768115095503e3],["Rule","'Top-1'",9650],["Rule","'Top-2'",9901],["Rule","'Top-3'",9963],["Rule","'Top-5'",9989]]],
+			["Rule","'Time'",["Quantity",1.34776339e1,"'Seconds'"]]
+		]
+	]
+]

@@ -45,6 +45,8 @@ With[{size = 1000} ,
 doTest["Resnet20-V2 trained on CIFAR10"]
 doTest["Resnet56-V2 trained on CIFAR10"]
 doTest["Resnet110-V2 trained on CIFAR10"]
-doTest["WideResnet16-10 trained on CIFAR10"]
-doTest["WideResnet28-10 trained on CIFAR10"]
-doTest["WideResnet40-8 trained on CIFAR10"]
+
+
+doTest["Resnet16-Wide10 trained on CIFAR10"]
+doTest["Resnet28-Wide10 trained on CIFAR10"]
+doTest["Resnet40-Wide8 trained on CIFAR10"]
