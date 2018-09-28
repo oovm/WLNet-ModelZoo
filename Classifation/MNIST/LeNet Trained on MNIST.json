@@ -1,0 +1,38 @@
+{
+	"NetInfomation":{
+		"Input":[
+			1,
+			28,
+			28
+		],
+		"ParametersCount":431080,
+		"ModelSize":1.7243199999999999,
+		"Nodes":11
+	},
+	"TrainingSet":{
+		"Date":"Fri 28 Sep 2018 10:01:47",
+		"Number":60000,
+		"Losses":{
+			"CrossEntropyLoss":1.8379854776235125e3,
+			"ProbabilityLoss":1.2836562661653913e-2,
+			"Top-1":59426,
+			"Top-2":59932,
+			"Top-3":59991,
+			"Top-5":59999
+		},
+		"Time":4.106387499999999
+	},
+	"TestingSet":{
+		"Date":"Fri 28 Sep 2018 10:02:03",
+		"Number":10000,
+		"Losses":{
+			"CrossEntropyLoss":6.596566333917324e2,
+			"ProbabilityLoss":1.8493793861671708e-2,
+			"Top-1":9848,
+			"Top-2":9973,
+			"Top-3":9991,
+			"Top-5":9999
+		},
+		"Time":0.7433751
+	}
+}
