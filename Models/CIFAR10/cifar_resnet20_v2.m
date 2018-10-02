@@ -7,7 +7,7 @@ DateString[]
 
 
 (* ::Subitem:: *)
-(*Tue 16 Oct 2018 15:59:51*)
+(*Tue 16 Oct 2018 20:03:11*)
 
 
 (* ::Subchapter:: *)
@@ -33,12 +33,14 @@ decoder = NetDecoder[{"Class", tags}]
 
 
 getBN[i_, j_] := BatchNormalizationLayer[
+	"Epsilon" -> 1*^-5,
 	"Beta" -> ndarry["arg:cifarresnetv20_stage" <> i <> "_batchnorm" <> j <> "_beta"],
 	"Gamma" -> ndarry["arg:cifarresnetv20_stage" <> i <> "_batchnorm" <> j <> "_gamma"],
 	"MovingMean" -> ndarry["aux:cifarresnetv20_stage" <> i <> "_batchnorm" <> j <> "_running_mean"],
 	"MovingVariance" -> ndarry["aux:cifarresnetv20_stage" <> i <> "_batchnorm" <> j <> "_running_var"]
 ]
 getBN2[j_] := BatchNormalizationLayer[
+	"Epsilon" -> 1*^-5,
 	"Beta" -> ndarry["arg:cifarresnetv20_batchnorm" <> j <> "_beta"],
 	"Gamma" -> ndarry["arg:cifarresnetv20_batchnorm" <> j <> "_gamma"],
 	"MovingMean" -> ndarry["aux:cifarresnetv20_batchnorm" <> j <> "_running_mean"],

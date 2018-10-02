@@ -33,12 +33,14 @@ decoder = NetDecoder[{"Class", tags}]
 
 
 getBN[i_, j_] := BatchNormalizationLayer[
+	"Epsilon" -> 1*^-5,
 	"Beta" -> ndarry["arg:cifarresnetv21_stage" <> i <> "_batchnorm" <> j <> "_beta"],
 	"Gamma" -> ndarry["arg:cifarresnetv21_stage" <> i <> "_batchnorm" <> j <> "_gamma"],
 	"MovingMean" -> ndarry["aux:cifarresnetv21_stage" <> i <> "_batchnorm" <> j <> "_running_mean"],
 	"MovingVariance" -> ndarry["aux:cifarresnetv21_stage" <> i <> "_batchnorm" <> j <> "_running_var"]
 ]
 getBN2[j_] := BatchNormalizationLayer[
+	"Epsilon" -> 1*^-5,
 	"Beta" -> ndarry["arg:cifarresnetv21_batchnorm" <> j <> "_beta"],
 	"Gamma" -> ndarry["arg:cifarresnetv21_batchnorm" <> j <> "_gamma"],
 	"MovingMean" -> ndarry["aux:cifarresnetv21_batchnorm" <> j <> "_running_mean"],
