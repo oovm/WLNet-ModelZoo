@@ -22,7 +22,7 @@ doTest[name_] := Block[
 		"TrainingSet" -> ClassificationBenchmark[net, trData, {1, 2, 3, 5}],
 		"TestingSet" -> ClassificationBenchmark[net, tsData, {1, 2, 3, 5}]
 	|>;
-	Export[name <> ".json", export, "ExpressionJSON", "Compact" -> 3]
+	Export[name <> ".json", GeneralUtilities`ToAssociations@export]
 ];
 
 
@@ -30,7 +30,7 @@ doTest[name_] := Block[
 (*Warm-up*)
 
 
-With[{size = 1000} ,
+With[{size = 1000},
 	x = RandomReal[1, {size, size}];
 	layer = NetInitialize@LinearLayer[size, "Input" -> size, "Biases" -> None];
 	time = First@RepeatedTiming[layer[x, TargetDevice -> "GPU"]];

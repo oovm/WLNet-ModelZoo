@@ -1,36 +1,38 @@
-[
-	"Association",
-	[
-		"Rule",
-		"'NetInfomation'",
-		[
-			"List",
-			["Rule","'Input'",["List",3,32,32]],
-			["Rule","'ParametersCount'",1738630],
-			["Rule","'ModelSize'",["Quantity",6.95452,"'Megabytes'"]],
-			["Rule","'Nodes'",387]
-		]
-	],
-	[
-		"Rule",
-		"'TrainingSet'",
-		[
-			"Association",
-			["Rule","'Date'",["DateObject",["List",2018,9,25,22,13,"8.3800870"],"'Instant'","'Gregorian'",8.0]],
-			["Rule","'Number'",50000],
-			["Rule","'Losses'",["List",["Rule","'pLoss'",5.426894240401452e-3],["Rule","'TCE'",3.703753012071611e2],["Rule","'Top-1'",49928],["Rule","'Top-2'",49990],["Rule","'Top-3'",49995],["Rule","'Top-5'",49999]]],
-			["Rule","'Time'",["Quantity",2.40987702e1,"'Seconds'"]]
-		]
-	],
-	[
-		"Rule",
-		"'TestingSet'",
-		[
-			"Association",
-			["Rule","'Date'",["DateObject",["List",2018,9,25,22,13,"43.0525941"],"'Instant'","'Gregorian'",8.0]],
-			["Rule","'Number'",10000],
-			["Rule","'Losses'",["List",["Rule","'pLoss'",5.3385191147726434e-2],["Rule","'TCE'",1.911907725581441e3],["Rule","'Top-1'",9527],["Rule","'Top-2'",9853],["Rule","'Top-3'",9951],["Rule","'Top-5'",9989]]],
-			["Rule","'Time'",["Quantity",5.0751504,"'Seconds'"]]
-		]
-	]
-]
+{
+	"NetInfomation":{
+		"Input":[
+			3,
+			32,
+			32
+		],
+		"ParametersCount":1738630,
+		"ModelSize":6.95452,
+		"Nodes":387
+	},
+	"TrainingSet":{
+		"Date":"Wed 3 Oct 2018 22:07:54",
+		"Number":50000,
+		"Losses":{
+			"CrossEntropyLoss":3.703753281809695e2,
+			"ProbabilityLoss":5.426894658064702e-3,
+			"Top-1":49928,
+			"Top-2":49990,
+			"Top-3":49995,
+			"Top-5":49999
+		},
+		"Time":2.4177763000000002e1
+	},
+	"TestingSet":{
+		"Date":"Wed 3 Oct 2018 22:08:30",
+		"Number":10000,
+		"Losses":{
+			"CrossEntropyLoss":1.9119076705081752e3,
+			"ProbabilityLoss":5.3385190489290836e-2,
+			"Top-1":9527,
+			"Top-2":9853,
+			"Top-3":9951,
+			"Top-5":9989
+		},
+		"Time":4.8988224
+	}
+}
