@@ -63,18 +63,18 @@ getBlock[i_, j_, k_ : 0] := NetGraph[{
 	NetPort["Input"] -> 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 }]
 getBlock2[i_] := NetGraph[{
-getBN[ToString[i], "0"],Ramp,getCN[ToString[i],"2",0,1], ThreadingLayer[Plus],
-getCN[ToString[i],"0"],getBN[ToString[i], "1"],Ramp,getCN[ToString[i],"1"]
-},{
-NetPort["Input"] -> 1->2->3->4,
- 2 -> 5 ->6 ->7 ->8->4
+	getBN[ToString[i], "0"], Ramp, getCN[ToString[i], "2", 0, 1], ThreadingLayer[Plus],
+	getCN[ToString[i], "0"], getBN[ToString[i], "1"], Ramp, getCN[ToString[i], "1"]
+}, {
+	NetPort["Input"] -> 1 -> 2 -> 3 -> 4,
+	2 -> 5 -> 6 -> 7 -> 8 -> 4
 }]
 getBlock3[i_] := NetGraph[{
-getBN[ToString[i], "0"],Ramp,getCN[ToString[i],"2",0,2], ThreadingLayer[Plus],
-getCN[ToString[i],"0",1,2],getBN[ToString[i], "1"],Ramp,getCN[ToString[i],"1"]
-},{
-NetPort["Input"] -> 1->2->3->4,
- 2 -> 5 ->6 ->7 ->8->4
+	getBN[ToString[i], "0"], Ramp, getCN[ToString[i], "2", 0, 2], ThreadingLayer[Plus],
+	getCN[ToString[i], "0", 1, 2], getBN[ToString[i], "1"], Ramp, getCN[ToString[i], "1"]
+}, {
+	NetPort["Input"] -> 1 -> 2 -> 3 -> 4,
+	2 -> 5 -> 6 -> 7 -> 8 -> 4
 }]
 getBlock4[] := NetChain[{
 	getBN2["2"], Ramp,
@@ -91,13 +91,13 @@ getBlock4[] := NetChain[{
 
 
 mainNet = NetChain[{
-	NetChain[{getBN2["0"] ,getCN2["0"],getBN2["1"]}],
+	NetChain[{getBN2["0"] , getCN2["0"], getBN2["1"]}],
 	getBlock2[1],
-	NetChain@Table[getBlock[1, i, 1], {i, 2,10, 2}],
+	NetChain@Table[getBlock[1, i, 1], {i, 2, 10, 2}],
 	getBlock3[2],
-	NetChain@Table[getBlock[2, i, 1], {i, 2,10, 2}],
+	NetChain@Table[getBlock[2, i, 1], {i, 2, 10, 2}],
 	getBlock3[3],
-	NetChain@Table[getBlock[3, i, 1], {i, 2,10, 2}],
+	NetChain@Table[getBlock[3, i, 1], {i, 2, 10, 2}],
 	getBlock4[],
 	SoftmaxLayer[]
 },
