@@ -6,7 +6,6 @@ def zoo_import(name, head=''):
 	net = gz.get_model(name, pretrained=True)
 	export_block(head + name, net, preprocess=True)
 
-zoo_import('densenet121', 'imagenet_')
-zoo_import('densenet161', 'imagenet_')
-zoo_import('densenet169', 'imagenet_')
-zoo_import('densenet201', 'imagenet_')
+zoo_import('cifar_resnet20_v2')
+zoo_import('cifar_resnet56_v2')
+zoo_import('cifar_resnet110_v2')

@@ -7,14 +7,14 @@ DateString[]
 
 
 (* ::Subitem:: *)
-(*Tue 16 Oct 2018 20:30:13*)
+(*Tue 16 Oct 2018 20:31:45*)
 
 
 (* ::Subchapter:: *)
 (*Import Weights*)
 
 
-ndarry = NDArrayImport["cifar_wideresnet28_10-0000.params"];
+ndarry = NDArrayImport["cifar_wideresnet16_10-0000.params"];
 
 
 (* ::Subchapter:: *)
@@ -34,24 +34,24 @@ decoder = NetDecoder[{"Class", tags}]
 
 getBN[i_, j_] := BatchNormalizationLayer[
 	"Epsilon" -> 1*^-5,
-	"Beta" -> ndarry["arg:cifarwideresnet1_stage" <> i <> "_batchnorm" <> j <> "_beta"],
-	"Gamma" -> ndarry["arg:cifarwideresnet1_stage" <> i <> "_batchnorm" <> j <> "_gamma"],
-	"MovingMean" -> ndarry["aux:cifarwideresnet1_stage" <> i <> "_batchnorm" <> j <> "_running_mean"],
-	"MovingVariance" -> ndarry["aux:cifarwideresnet1_stage" <> i <> "_batchnorm" <> j <> "_running_var"]
+	"Beta" -> ndarry["arg:cifarwideresnet0_stage" <> i <> "_batchnorm" <> j <> "_beta"],
+	"Gamma" -> ndarry["arg:cifarwideresnet0_stage" <> i <> "_batchnorm" <> j <> "_gamma"],
+	"MovingMean" -> ndarry["aux:cifarwideresnet0_stage" <> i <> "_batchnorm" <> j <> "_running_mean"],
+	"MovingVariance" -> ndarry["aux:cifarwideresnet0_stage" <> i <> "_batchnorm" <> j <> "_running_var"]
 ]
 getBN2[j_] := BatchNormalizationLayer[
 	"Epsilon" -> 1*^-5,
-	"Beta" -> ndarry["arg:cifarwideresnet1_batchnorm" <> j <> "_beta"],
-	"Gamma" -> ndarry["arg:cifarwideresnet1_batchnorm" <> j <> "_gamma"],
-	"MovingMean" -> ndarry["aux:cifarwideresnet1_batchnorm" <> j <> "_running_mean"],
-	"MovingVariance" -> ndarry["aux:cifarwideresnet1_batchnorm" <> j <> "_running_var"]
+	"Beta" -> ndarry["arg:cifarwideresnet0_batchnorm" <> j <> "_beta"],
+	"Gamma" -> ndarry["arg:cifarwideresnet0_batchnorm" <> j <> "_gamma"],
+	"MovingMean" -> ndarry["aux:cifarwideresnet0_batchnorm" <> j <> "_running_mean"],
+	"MovingVariance" -> ndarry["aux:cifarwideresnet0_batchnorm" <> j <> "_running_var"]
 ]
 getCN[i_, j_, p_ : 1, s_ : 1] := ConvolutionLayer[
-	"Weights" -> ndarry["arg:cifarwideresnet1_stage" <> i <> "_conv" <> j <> "_weight"],
+	"Weights" -> ndarry["arg:cifarwideresnet0_stage" <> i <> "_conv" <> j <> "_weight"],
 	"Biases" -> None, "PaddingSize" -> p, "Stride" -> s
 ]
 getCN2[j_] := ConvolutionLayer[
-	"Weights" -> ndarry["arg:cifarwideresnet1_conv" <> j <> "_weight"],
+	"Weights" -> ndarry["arg:cifarwideresnet0_conv" <> j <> "_weight"],
 	"Biases" -> None, "PaddingSize" -> 1
 ]
 getBlock[i_, j_, k_ : 0] := NetGraph[{
@@ -80,8 +80,8 @@ getBlock4[] := NetChain[{
 	getBN2["2"], Ramp,
 	AggregationLayer[Mean],
 	LinearLayer[10,
-		"Weights" -> ndarry["arg:cifarwideresnet1_dense0_weight"],
-		"Biases" -> ndarry["arg:cifarwideresnet1_dense0_bias"]
+		"Weights" -> ndarry["arg:cifarwideresnet0_dense0_weight"],
+		"Biases" -> ndarry["arg:cifarwideresnet0_dense0_bias"]
 	]
 }]
 
@@ -93,14 +93,14 @@ getBlock4[] := NetChain[{
 mainNet = NetChain[{
 	NetChain[{getBN2["0"] , getCN2["0"], getBN2["1"]}],
 	getBlock2[1],
-	NetChain@Table[getBlock[1, i, 1], {i, 2, 6, 2}],
+	Table[getBlock[1, 2, 1], {i, 2, 2, 2}],
 	getBlock3[2],
-	NetChain@Table[getBlock[2, i, 1], {i, 2, 6, 2}],
+	Table[getBlock[2, i, 1], {i, 2, 2, 2}],
 	getBlock3[3],
-	NetChain@Table[getBlock[3, i, 1], {i, 2, 6, 2}],
+	Table[getBlock[3, i, 1], {i, 2, 2, 2}],
 	getBlock4[],
 	SoftmaxLayer[]
-},
+} // Flatten,
 	"Input" -> encoder,
 	"Output" -> decoder
 ]
@@ -110,4 +110,4 @@ mainNet = NetChain[{
 (*Export Model*)
 
 
-Export["cifar_wideresnet28_10.WMLF", mainNet]
+Export["cifar_wideresnet16_10.WMLF", mainNet]

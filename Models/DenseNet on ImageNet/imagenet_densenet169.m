@@ -7,14 +7,14 @@ DateString[]
 
 
 (* ::Subitem:: *)
-(*Wed 17 Oct 2018 12:44:18*)
+(*Wed 17 Oct 2018 12:38:48*)
 
 
 (* ::Subchapter:: *)
 (*Import Weights*)
 
 
-ndarry = NDArrayImport["imagenet_densenet121-0000.params"];
+ndarry = NDArrayImport["imagenet_densenet169-0000.params"];
 
 
 (* ::Subchapter:: *)
@@ -33,24 +33,24 @@ decoder = NetExtract[NetModel["ResNet-50 Trained on ImageNet Competition Data"],
 
 getBN[i_, j_] := BatchNormalizationLayer[
 	"Epsilon" -> 1*^-5,
-	"Beta" -> ndarry["arg:densenet0_stage" <> i <> "_batchnorm" <> j <> "_beta"],
-	"Gamma" -> ndarry["arg:densenet0_stage" <> i <> "_batchnorm" <> j <> "_gamma"],
-	"MovingMean" -> ndarry["aux:densenet0_stage" <> i <> "_batchnorm" <> j <> "_running_mean"],
-	"MovingVariance" -> ndarry["aux:densenet0_stage" <> i <> "_batchnorm" <> j <> "_running_var"]
+	"Beta" -> ndarry["arg:densenet2_stage" <> i <> "_batchnorm" <> j <> "_beta"],
+	"Gamma" -> ndarry["arg:densenet2_stage" <> i <> "_batchnorm" <> j <> "_gamma"],
+	"MovingMean" -> ndarry["aux:densenet2_stage" <> i <> "_batchnorm" <> j <> "_running_mean"],
+	"MovingVariance" -> ndarry["aux:densenet2_stage" <> i <> "_batchnorm" <> j <> "_running_var"]
 ]
 getBN2[j_] := BatchNormalizationLayer[
 	"Epsilon" -> 1*^-5,
-	"Beta" -> ndarry["arg:densenet0_batchnorm" <> j <> "_beta"],
-	"Gamma" -> ndarry["arg:densenet0_batchnorm" <> j <> "_gamma"],
-	"MovingMean" -> ndarry["aux:densenet0_batchnorm" <> j <> "_running_mean"],
-	"MovingVariance" -> ndarry["aux:densenet0_batchnorm" <> j <> "_running_var"]
+	"Beta" -> ndarry["arg:densenet2_batchnorm" <> j <> "_beta"],
+	"Gamma" -> ndarry["arg:densenet2_batchnorm" <> j <> "_gamma"],
+	"MovingMean" -> ndarry["aux:densenet2_batchnorm" <> j <> "_running_mean"],
+	"MovingVariance" -> ndarry["aux:densenet2_batchnorm" <> j <> "_running_var"]
 ]
 getCN[i_, j_, p_ : 1, s_ : 1] := ConvolutionLayer[
-	"Weights" -> ndarry["arg:densenet0_stage" <> i <> "_conv" <> j <> "_weight"],
+	"Weights" -> ndarry["arg:densenet2_stage" <> i <> "_conv" <> j <> "_weight"],
 	"Biases" -> None, "PaddingSize" -> p, "Stride" -> s
 ]
 getCN2[j_, p_ : 1, s_ : 1] := ConvolutionLayer[
-	"Weights" -> ndarry["arg:densenet0_conv" <> j <> "_weight"],
+	"Weights" -> ndarry["arg:densenet2_conv" <> j <> "_weight"],
 	"Biases" -> None, "PaddingSize" -> p, "Stride" -> s
 ]
 $getBlock = NetChain@{
@@ -73,8 +73,8 @@ $getBlock2 = NetChain@{
 	getBN2["4"], Ramp,
 	PoolingLayer[{7, 7}, "Stride" -> 7, "Function" -> Mean],
 	LinearLayer[1000,
-		"Weights" -> ndarry["arg:densenet0_dense0_weight"],
-		"Biases" -> ndarry["arg:densenet0_dense0_bias"]
+		"Weights" -> ndarry["arg:densenet2_dense0_weight"],
+		"Biases" -> ndarry["arg:densenet2_dense0_bias"]
 	]
 }
 
@@ -89,9 +89,9 @@ mainNet = NetChain[{
 	getBlock2[1],
 	NetChain@Table[getBlock[2, i], {i, 0, 22, 2}],
 	getBlock2[2],
-	NetChain@Table[getBlock[3, i], {i, 0, 46, 2}],
+	NetChain@Table[getBlock[3, i], {i, 0, 62, 2}],
 	getBlock2[3],
-	NetChain@Table[getBlock[4, i], {i, 0, 30, 2}],
+	NetChain@Table[getBlock[4, i], {i, 0, 62, 2}],
 	$getBlock2,
 	SoftmaxLayer[]
 },
@@ -104,4 +104,4 @@ mainNet = NetChain[{
 (*Export Model*)
 
 
-Export["imagenet_densenet121.WMLF", mainNet]
+Export["imagenet_densenet169.WMLF", mainNet]
