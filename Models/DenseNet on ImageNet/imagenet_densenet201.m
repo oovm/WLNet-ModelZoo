@@ -7,7 +7,7 @@ DateString[]
 
 
 (* ::Subitem:: *)
-(*Wed 17 Oct 2018 12:36:09*)
+(*Wed 17 Oct 2018 19:42:31*)
 
 
 (* ::Subchapter:: *)
@@ -71,11 +71,7 @@ getBlock2[i_] := NetChain@{
 }
 $getBlock2 = NetChain@{
 	getBN2["4"], Ramp,
-	PoolingLayer[{7, 7}, "Stride" -> 7, "Function" -> Mean],
-	LinearLayer[1000,
-		"Weights" -> ndarry["arg:densenet3_dense0_weight"],
-		"Biases" -> ndarry["arg:densenet3_dense0_bias"]
-	]
+	PoolingLayer[{7, 7}, "Stride" -> 7, "Function" -> Mean]
 }
 
 
@@ -93,6 +89,10 @@ mainNet = NetChain[{
 	getBlock2[3],
 	NetChain@Table[getBlock[4, i], {i, 0, 62, 2}],
 	$getBlock2,
+	LinearLayer[1000,
+		"Weights" -> ndarry["arg:densenet3_dense0_weight"],
+		"Biases" -> ndarry["arg:densenet3_dense0_bias"]
+	],
 	SoftmaxLayer[]
 },
 	"Input" -> encoder,

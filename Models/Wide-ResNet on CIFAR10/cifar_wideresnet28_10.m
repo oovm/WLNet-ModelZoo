@@ -78,11 +78,7 @@ getBlock3[i_] := NetGraph[{
 }]
 getBlock4[] := NetChain[{
 	getBN2["2"], Ramp,
-	AggregationLayer[Mean],
-	LinearLayer[10,
-		"Weights" -> ndarry["arg:cifarwideresnet1_dense0_weight"],
-		"Biases" -> ndarry["arg:cifarwideresnet1_dense0_bias"]
-	]
+	AggregationLayer[Mean]
 }]
 
 
@@ -99,6 +95,10 @@ mainNet = NetChain[{
 	getBlock3[3],
 	NetChain@Table[getBlock[3, i, 1], {i, 2, 6, 2}],
 	getBlock4[],
+	LinearLayer[10,
+		"Weights" -> ndarry["arg:cifarwideresnet1_dense0_weight"],
+		"Biases" -> ndarry["arg:cifarwideresnet1_dense0_bias"]
+	],
 	SoftmaxLayer[]
 },
 	"Input" -> encoder,
