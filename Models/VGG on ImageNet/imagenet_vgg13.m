@@ -14,7 +14,7 @@ DateString[]
 (*Import Weights*)
 
 
-ndarry = NDArrayImport["imagenet_vgg13-0000.params"];
+params = NDArrayImport["imagenet_vgg13-0000.params"];
 
 
 (* ::Subchapter:: *)
@@ -32,13 +32,13 @@ decoder = NetExtract[NetModel["ResNet-50 Trained on ImageNet Competition Data"],
 
 
 getCN[i_] := ConvolutionLayer[
-	"Weights" -> ndarry["arg:vgg1_conv" <> i <> "_weight"],
-	"Biases" -> ndarry["arg:vgg1_conv" <> i <> "_bias"],
+	"Weights" -> params["arg:vgg1_conv" <> i <> "_weight"],
+	"Biases" -> params["arg:vgg1_conv" <> i <> "_bias"],
 	"PaddingSize" -> 1, "Stride" -> 1
 ]
 getFC[i_, n_] := LinearLayer[n,
-	"Weights" -> ndarry["arg:vgg1_dense" <> i <> "_weight"],
-	"Biases" -> ndarry["arg:vgg1_dense" <> i <> "_bias"]
+	"Weights" -> params["arg:vgg1_dense" <> i <> "_weight"],
+	"Biases" -> params["arg:vgg1_dense" <> i <> "_bias"]
 ]
 getBlock[i_, j_] := NetChain@Flatten@Table[{getCN[ToString@n], Ramp}, {n, i, j}]
 getBlock2[i_, j_] := NetChain@{getFC[ToString@i, j], Ramp, DropoutLayer[0.5]}

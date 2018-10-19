@@ -6,33 +6,33 @@ SetDirectory@NotebookDirectory[]; Now
 
 
 file = "yolo3_darknet53_coco";
-ndarry = NDArrayImport[file <> "-0000.params"];
+params = NDArrayImport[file <> "-0000.params"];
 params = MXModelLoadParameters[file <> "-0000.params"];
 
 
 input = NetEncoder[{"Image", 224, "MeanImage" -> {.485, .456, .406}, "VarianceImage" -> {.229, .224, .225}^2}]
 leayReLU[alpha_] := ElementwiseLayer[Ramp[#] - alpha * Ramp[-#]&]
 getCV$a[n_, p_ : 1, s_ : 1] := ConvolutionLayer[
-	"Weights" -> ndarry["arg:darknetv30_conv" <> ToString[n] <> "_weight"],
+	"Weights" -> params["arg:darknetv30_conv" <> ToString[n] <> "_weight"],
 	"Biases" -> None, "PaddingSize" -> p, "Stride" -> s
 ];
 getBN$a[n_] := BatchNormalizationLayer[
 	"Epsilon" -> 1*^-5,
-	"Beta" -> ndarry["arg:darknetv30_batchnorm" <> ToString[n] <> "_beta"],
-	"Gamma" -> ndarry["arg:darknetv30_batchnorm" <> ToString[n] <> "_gamma"],
-	"MovingMean" -> ndarry["aux:darknetv30_batchnorm" <> ToString[n] <> "_running_mean"],
-	"MovingVariance" -> ndarry["aux:darknetv30_batchnorm" <> ToString[n] <> "_running_var"]
+	"Beta" -> params["arg:darknetv30_batchnorm" <> ToString[n] <> "_beta"],
+	"Gamma" -> params["arg:darknetv30_batchnorm" <> ToString[n] <> "_gamma"],
+	"MovingMean" -> params["aux:darknetv30_batchnorm" <> ToString[n] <> "_running_mean"],
+	"MovingVariance" -> params["aux:darknetv30_batchnorm" <> ToString[n] <> "_running_var"]
 ];
 getCV$b[n_, p_ : 1, s_ : 1] := ConvolutionLayer[
-	"Weights" -> ndarry["arg:yolov30_yolodetectionblockv30_conv" <> ToString[n] <> "_weight"],
+	"Weights" -> params["arg:yolov30_yolodetectionblockv30_conv" <> ToString[n] <> "_weight"],
 	"Biases" -> None, "PaddingSize" -> p, "Stride" -> s
 ];
 getBN$b[n_] := BatchNormalizationLayer[
 	"Epsilon" -> 1*^-5,
-	"Beta" -> ndarry["arg:yolov30_yolodetectionblockv30_batchnorm" <> ToString[n] <> "_beta"],
-	"Gamma" -> ndarry["arg:yolov30_yolodetectionblockv30_batchnorm" <> ToString[n] <> "_gamma"],
-	"MovingMean" -> ndarry["aux:yolov30_yolodetectionblockv30_batchnorm" <> ToString[n] <> "_running_mean"],
-	"MovingVariance" -> ndarry["aux:yolov30_yolodetectionblockv30_batchnorm" <> ToString[n] <> "_running_var"]
+	"Beta" -> params["arg:yolov30_yolodetectionblockv30_batchnorm" <> ToString[n] <> "_beta"],
+	"Gamma" -> params["arg:yolov30_yolodetectionblockv30_batchnorm" <> ToString[n] <> "_gamma"],
+	"MovingMean" -> params["aux:yolov30_yolodetectionblockv30_batchnorm" <> ToString[n] <> "_running_mean"],
+	"MovingVariance" -> params["aux:yolov30_yolodetectionblockv30_batchnorm" <> ToString[n] <> "_running_var"]
 ];
 
 
@@ -74,7 +74,7 @@ block5 = NetChain[{
 NetChain[{getCV$b[5, 0, 1], getBN$b[5], leayReLU[0.1]}]
 
 
-Take[Keys@ndarry, {263, -1}] // TableForm
+Take[Keys@params, {263, -1}] // TableForm
 
 
 NetModel[]

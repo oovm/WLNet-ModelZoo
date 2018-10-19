@@ -14,7 +14,7 @@ DateString[]
 (*Import Weights*)
 
 
-ndarry = NDArrayImport["imagenet_alexnet-0000.params"];
+params = NDArrayImport["imagenet_alexnet-0000.params"];
 
 
 (* ::Subchapter:: *)
@@ -32,13 +32,13 @@ decoder = NetExtract[NetModel["ResNet-50 Trained on ImageNet Competition Data"],
 
 
 getCN[i_, p_, s_] := ConvolutionLayer[
-	"Weights" -> ndarry["arg:alexnet0_conv" <> i <> "_weight"],
-	"Biases" -> ndarry["arg:alexnet0_conv" <> i <> "_bias"],
+	"Weights" -> params["arg:alexnet0_conv" <> i <> "_weight"],
+	"Biases" -> params["arg:alexnet0_conv" <> i <> "_bias"],
 	"PaddingSize" -> p, "Stride" -> s
 ]
 getFC[i_, n_] := LinearLayer[n,
-	"Weights" -> ndarry["arg:alexnet0_dense" <> i <> "_weight"],
-	"Biases" -> ndarry["arg:alexnet0_dense" <> i <> "_bias"]
+	"Weights" -> params["arg:alexnet0_dense" <> i <> "_weight"],
+	"Biases" -> params["arg:alexnet0_dense" <> i <> "_bias"]
 ]
 
 

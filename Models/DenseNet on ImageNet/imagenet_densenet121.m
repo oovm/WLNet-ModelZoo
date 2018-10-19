@@ -14,7 +14,7 @@ DateString[]
 (*Import Weights*)
 
 
-ndarry = NDArrayImport["imagenet_densenet121-0000.params"];
+params = NDArrayImport["imagenet_densenet121-0000.params"];
 
 
 (* ::Subchapter:: *)
@@ -33,24 +33,24 @@ decoder = NetExtract[NetModel["ResNet-50 Trained on ImageNet Competition Data"],
 
 getBN[i_, j_] := BatchNormalizationLayer[
 	"Epsilon" -> 1*^-5,
-	"Beta" -> ndarry["arg:densenet0_stage" <> i <> "_batchnorm" <> j <> "_beta"],
-	"Gamma" -> ndarry["arg:densenet0_stage" <> i <> "_batchnorm" <> j <> "_gamma"],
-	"MovingMean" -> ndarry["aux:densenet0_stage" <> i <> "_batchnorm" <> j <> "_running_mean"],
-	"MovingVariance" -> ndarry["aux:densenet0_stage" <> i <> "_batchnorm" <> j <> "_running_var"]
+	"Beta" -> params["arg:densenet0_stage" <> i <> "_batchnorm" <> j <> "_beta"],
+	"Gamma" -> params["arg:densenet0_stage" <> i <> "_batchnorm" <> j <> "_gamma"],
+	"MovingMean" -> params["aux:densenet0_stage" <> i <> "_batchnorm" <> j <> "_running_mean"],
+	"MovingVariance" -> params["aux:densenet0_stage" <> i <> "_batchnorm" <> j <> "_running_var"]
 ]
 getBN2[j_] := BatchNormalizationLayer[
 	"Epsilon" -> 1*^-5,
-	"Beta" -> ndarry["arg:densenet0_batchnorm" <> j <> "_beta"],
-	"Gamma" -> ndarry["arg:densenet0_batchnorm" <> j <> "_gamma"],
-	"MovingMean" -> ndarry["aux:densenet0_batchnorm" <> j <> "_running_mean"],
-	"MovingVariance" -> ndarry["aux:densenet0_batchnorm" <> j <> "_running_var"]
+	"Beta" -> params["arg:densenet0_batchnorm" <> j <> "_beta"],
+	"Gamma" -> params["arg:densenet0_batchnorm" <> j <> "_gamma"],
+	"MovingMean" -> params["aux:densenet0_batchnorm" <> j <> "_running_mean"],
+	"MovingVariance" -> params["aux:densenet0_batchnorm" <> j <> "_running_var"]
 ]
 getCN[i_, j_, p_ : 1, s_ : 1] := ConvolutionLayer[
-	"Weights" -> ndarry["arg:densenet0_stage" <> i <> "_conv" <> j <> "_weight"],
+	"Weights" -> params["arg:densenet0_stage" <> i <> "_conv" <> j <> "_weight"],
 	"Biases" -> None, "PaddingSize" -> p, "Stride" -> s
 ]
 getCN2[j_, p_ : 1, s_ : 1] := ConvolutionLayer[
-	"Weights" -> ndarry["arg:densenet0_conv" <> j <> "_weight"],
+	"Weights" -> params["arg:densenet0_conv" <> j <> "_weight"],
 	"Biases" -> None, "PaddingSize" -> p, "Stride" -> s
 ]
 $getBlock = NetChain@{
@@ -90,8 +90,8 @@ mainNet = NetChain[{
 	NetChain@Table[getBlock[4, i], {i, 0, 30, 2}],
 	$getBlock2,
 	LinearLayer[1000,
-		"Weights" -> ndarry["arg:densenet0_dense0_weight"],
-		"Biases" -> ndarry["arg:densenet0_dense0_bias"]
+		"Weights" -> params["arg:densenet0_dense0_weight"],
+		"Biases" -> params["arg:densenet0_dense0_bias"]
 	],
 	SoftmaxLayer[]
 },
