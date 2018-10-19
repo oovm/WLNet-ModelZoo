@@ -6,6 +6,8 @@
 NetChain2Graph::usage = "Transform a NetChain to NetGraph.";
 ImageNetEncoder::usage = "";
 RemoveLayerShape::usage = "Try to remove the shape of the layer";
+MXNet$Bind::usage = "Import and Bind the MX-Symbol and MX-NDArray";
+MXNet$Boost::usage = "A Function which call a mxnet evaluation";
 (* ::Subchapter:: *)
 (*Main*)
 (* ::Subsection:: *)
@@ -71,6 +73,62 @@ RemoveLayerShape[layer_ElementwiseLayer] := With[
 ];
 RemoveLayerShape[layer_SoftmaxLayer] := Nothing;
 RemoveLayerShape[layer_FlattenLayer] := Nothing;
+
+
+
+MXNet$Bind[pathJ_, pathP_] := Block[
+	{symbol, params},
+	symbol = MXNetLink`MXSymbolFromJSON@File[pathJ];
+	params = MXNetLink`MXModelLoadParameters[pathP];
+	<|
+		"Framework" -> {"MXNet", Import[pathJ][[-1, -1, -1, -1, -1]]},
+		"Graph" -> MXNetLink`MXSymbolToJSON@symbol,
+		"Nodes" -> Length@MXNetLink`MXSymbolToJSON[symbol]["nodes"],
+		"Put" -> {"Image", "Colorful", "ImageSize"},
+		"Get" -> "Image",
+		"<<" -> "data",
+		">>" -> First@MXNetLink`MXSymbolOutputs@symbol,
+		"Weight" -> MXNetLink`NDArrayGetRawArray /@ params["ArgumentArrays"],
+		"Auxilliary" -> MXNetLink`NDArrayGetRawArray /@ params["AuxilliaryArrays"],
+		"Fixed" -> <||>
+	|>
+];
+
+
+
+
+
+(* ::Subsubsection:: *)
+(*功能块 2*)
+Options[MXNet$Boost] = {TargetDevice -> "GPU"};
+MXNet$Boost[dm_Association, OptionsPattern[]] := Block[
+	{exe, device, port},
+	device = NeuralNetworks`Private`ParseContext @OptionValue[TargetDevice];
+	exe = NeuralNetworks`Private`ToNetExecutor[
+		NeuralNetworks`NetPlan[<|
+			"Symbol" -> MXNetLink`MXSymbolFromJSON@dm["Graph"],
+			"WeightArrays" -> dm["Weight"],
+			"FixedArrays" -> dm["Fixed"],
+			"BatchedArrayDims" -> <|dm["<<"] -> {BatchSize, Sequence @@ Dimensions[#]}|>,
+			"ZeroArrays" -> {},
+			"AuxilliaryArrays" -> dm["Auxilliary"],
+			"Inputs" -> <|"Input" -> dm["<<"]|>,
+			"Outputs" -> <|"Output" -> dm[">>"]|>,
+			"InputStates" -> <||>,
+			"OutputStates" -> <||>,
+			"Metrics" -> <||>,
+			"LogicalWeights" -> <||>,
+			"ReshapeTemplate" -> None,
+			"NodeCount" -> dm["nodes"]
+		|>],
+		1, "Context" -> device, "ArrayCaching" -> True
+	];
+	port = ToExpression@StringDelete[ToString[exe["Arrays", "Inputs", "Input"]], {"NDArray[", "]"}];
+	MXNetLink`NDArray`PackagePrivate`mxWritePackedArrayToNDArrayChecked[#, port];
+	NeuralNetworks`NetExecutorForward[exe, False];
+	exe["Arrays", "Outputs", "Output"] // MXNetLink`NDArrayGetFlat
+]&;
+
 
 (* ::Subsection:: *)
 (*Additional*)
