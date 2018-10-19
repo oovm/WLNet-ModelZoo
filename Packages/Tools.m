@@ -28,6 +28,8 @@ NetChain2Graph[net_NetChain] := Block[
 		"Output" -> NetExtract[net, "Output"]
 	];
 ];
+
+
 (* ::Subsubsection:: *)
 (*ImageNetEncoder*)
 ImageNetEncoder[size_ : 224, c_ : "RGB"] := NetEncoder[{
@@ -38,6 +40,8 @@ ImageNetEncoder[size_ : 224, c_ : "RGB"] := NetEncoder[{
 }];
 
 
+(* ::Subsubsection:: *)
+(*RemoveLayerShape*)
 RemoveLayerShape[layer_ConvolutionLayer] := With[
 	{
 		k = NetExtract[layer, "OutputChannels"],
@@ -54,7 +58,6 @@ RemoveLayerShape[layer_ConvolutionLayer] := With[
 		"Dilation" -> dilation
 	]
 ];
-
 RemoveLayerShape[layer_PoolingLayer] := With[
 	{
 		f = NetExtract[layer, "Function"],
@@ -66,7 +69,6 @@ RemoveLayerShape[layer_PoolingLayer] := With[
 		"PaddingSize" -> padding, "Function" -> f
 	]
 ];
-
 RemoveLayerShape[layer_ElementwiseLayer] := With[
 	{f = NetExtract[layer, "Function"]},
 	ElementwiseLayer[f]
@@ -75,7 +77,8 @@ RemoveLayerShape[layer_SoftmaxLayer] := Nothing;
 RemoveLayerShape[layer_FlattenLayer] := Nothing;
 
 
-
+(* ::Subsubsection:: *)
+(*MXNet$Bind*)
 MXNet$Bind[pathJ_, pathP_] := Block[
 	{symbol, params},
 	symbol = MXNetLink`MXSymbolFromJSON@File[pathJ];
@@ -95,15 +98,12 @@ MXNet$Bind[pathJ_, pathP_] := Block[
 ];
 
 
-
-
-
 (* ::Subsubsection:: *)
-(*功能块 2*)
+(*MXNet$Boost*)
 Options[MXNet$Boost] = {TargetDevice -> "GPU"};
 MXNet$Boost[dm_Association, OptionsPattern[]] := Block[
 	{exe, device, port},
-	device = NeuralNetworks`Private`ParseContext @OptionValue[TargetDevice];
+	device = NeuralNetworks`Private`ParseContext@OptionValue[TargetDevice];
 	exe = NeuralNetworks`Private`ToNetExecutor[
 		NeuralNetworks`NetPlan[<|
 			"Symbol" -> MXNetLink`MXSymbolFromJSON@dm["Graph"],
