@@ -67,4 +67,4 @@ mainNet = NetChain[{
 (*Export Model*)
 
 
-Export["imagenet_vgg11.WMLF", mainNet]
+Export["imagenet_vgg11.WXF", mainNet]

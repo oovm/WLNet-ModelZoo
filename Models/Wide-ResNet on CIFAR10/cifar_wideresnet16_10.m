@@ -110,4 +110,4 @@ mainNet = NetChain[{
 (*Export Model*)
 
 
-Export["cifar_wideresnet16_10.WMLF", mainNet]
+Export["cifar_wideresnet16_10.WXF", mainNet]
