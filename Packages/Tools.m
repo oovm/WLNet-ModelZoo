@@ -4,7 +4,7 @@
 (* ::Subchapter:: *)
 (*Introduce*)
 NetChain2Graph::usage = "Transform a NetChain to NetGraph.";
-ImageNetEncoder::usage = "";
+ImageEncoder::usage = "";
 RemoveLayerShape::usage = "Try to remove the shape of the layer";
 MXNet$Bind::usage = "Import and Bind the MX-Symbol and MX-NDArray";
 MXNet$Boost::usage = "A Function which call a mxnet evaluation";
@@ -32,7 +32,7 @@ NetChain2Graph[net_NetChain] := Block[
 
 (* ::Subsubsection:: *)
 (*ImageNetEncoder*)
-ImageNetEncoder[size_ : 224, c_ : "RGB"] := NetEncoder[{
+ImageEncoder[size_ : 224, c_ : "RGB"] := NetEncoder[{
 	"Image", size,
 	ColorSpace -> c,
 	"MeanImage" -> {.485, .456, .406},
