@@ -41,27 +41,6 @@ ResBlockV2[c_Integer, n_Integer, head_ : True] := Block[
 ];
 
 
-head := {
-	BatchNormalizationLayer["Epsilon" -> 1*^-5],
-	ConvolutionLayer[64, {7, 7}, "PaddingSize" -> 3, "Stride" -> 2],
-	ElementwiseLayer["ReLU"],
-	PoolingLayer[{3, 3}, "PaddingSize" -> 2, "Stride" -> 2]
-};
-tail := {
-	BatchNormalizationLayer["Epsilon" -> 1*^-5],
-	ElementwiseLayer["ReLU"],
-	PoolingLayer[{7, 7}, "Function" -> Mean, "Stride" -> 7],
-	FlattenLayer[]
-};
-predict := {1000, SoftmaxLayer[]};
-NetChain@{
-	head,
-	ResBlockV2[64, 2, False],
-	ResBlockV2[128, 4, True],
-	ResBlockV2[256, 8, True],
-	tail, predict
-}
-
 (* ::Subsection:: *)
 (*Additional*)
 SetAttributes[
