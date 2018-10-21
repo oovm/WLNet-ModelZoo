@@ -8,13 +8,15 @@ ImageEncoder::usage = "";
 RemoveLayerShape::usage = "Try to remove the shape of the layer";
 MXNet$Bind::usage = "Import and Bind the MX-Symbol and MX-NDArray";
 MXNet$Boost::usage = "A Function which call a mxnet evaluation";
+ClassificationBenchmark::usage = "";
+ClassificationInformation::usage = "";
 (* ::Subchapter:: *)
 (*Main*)
 (* ::Subsection:: *)
 (*Settings*)
 Begin["`Tools`"];
-Version$Tools = "V0.0";
-Updated$Tools = "2018-10-09";
+Version$Tools = "V0.4";
+Updated$Tools = "2018-10-20";
 (* ::Subsection::Closed:: *)
 (*Codes*)
 (* ::Subsubsection:: *)
@@ -129,6 +131,34 @@ MXNet$Boost[dm_Association, OptionsPattern[]] := Block[
 	exe["Arrays", "Outputs", "Output"] // MXNetLink`NDArrayGetFlat
 ]&;
 
+
+
+ClassificationInformation[net_] := {
+	"Input" -> NetExtract[net, 1][["Input"]],
+	"ParametersCount" -> NetInformation[net, "ArraysTotalElementCount"],
+	"ModelSize" -> NetInformation[net, "ArraysTotalSize"],
+	"Nodes" -> NetInformation[net, "LayersCount"]
+}
+ClassificationBenchmark[net_, data_List, top_List : {1}] := Block[
+	{$now, ans, time, pLoss, layer, TCE, getTop, right},
+	$now = Now;
+	ans = net[Keys@data, "Probabilities", TargetDevice -> "GPU"];
+	time = Now - $now;
+	Export["cache.wxf", ans];
+	pLoss := "pLoss" -> Mean[1 - MapThread[#1[#2]&, {ans, Values@data}]];
+	layer = CrossEntropyLossLayer["Index", "Target" -> NetEncoder@NetExtract[net, "Output"]];
+	TCE := "TCE" -> Tr@MapThread[layer[<|"Input" -> Values@#1, "Target" -> #2|>]&, {ans, Values@data}];
+	getTop[n_] := (
+		right = MapThread[MemberQ[Keys[TakeLargest[#1, n]], #2]&, {ans, Values@data}];
+		"Top-" <> ToString[n] -> Total@Boole@right
+	);
+	<|
+		"Date" -> $now,
+		"Number" -> Length@data,
+		"Losses" -> SortBy[Flatten[{getTop /@ top, pLoss, TCE}], First],
+		"Time" -> time
+	|>
+];
 
 (* ::Subsection:: *)
 (*Additional*)
