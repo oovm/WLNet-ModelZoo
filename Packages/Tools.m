@@ -145,7 +145,7 @@ ClassificationBenchmark[net_, data_List, top_List : {1}] := Block[
 	$now = Now;
 	ans = net[Keys@data, "Probabilities", TargetDevice -> "GPU"];
 	time = Now - $now;
-	Export["cache.wxf", ans];
+	(*Export["cache.wxf", ans];*)
 	pLoss := "ProbabilityLoss" -> Mean[1 - MapThread[#1[#2]&, {ans, Values@data}]];
 	layer = CrossEntropyLossLayer["Index", "Target" -> NetEncoder@NetExtract[net, "Output"]];
 	TCE := "CrossEntropyLoss" -> Tr@MapThread[layer[<|"Input" -> Values@#1, "Target" -> #2|>]&, {ans, Values@data}];
