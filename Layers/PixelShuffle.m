@@ -1,28 +1,37 @@
-Input : TensorT[$Dimensions]
+(* ::Package:: *)
 
-Output : TensorT[$Dimensions]
+Input: ChannelT[$$InputChannels, TensorT[$$InputSize]]
 
-Parameters :
-	$Scaled : ValidatedParameterT[checkInput]
-	$$Channels : SizeT
-	$$InputSize : SizeListT[2]
-	$$OutputSize : ComputedType[SizeListT[2], computeSize[$$InputSize, $Scaled]]
+Output: ChannelT[$$OutputChannels, TensorT[$$OutputSize]]
 
+(*ReshapeParams: {$$InputChannels, $$InputSize, $$OutputChannels, $$OutputSize}*)
 
+Parameters:
+	$Scaled: ValidatedParameterT[checkInput]
+	$$InputChannels: SizeT
+	$$InputSize: SizeListT[2]
+	$$OutputChannels: ComputedType[SizeT, $$InputChannels/$Scaled]
+	$$OutputSize: ComputedType[SizeListT[2], $$InputSize*$Scaled]
+
+AllowDynamicDimensions: True
+
+(*ComputedType[SizeListT[2], computeSize[$$InputSize]]*)
+
+oS[in_,s_]:=MaybeDyn[in/s];
+
+oc[in_,s_]:=MaybeDyn[in*s];
 
 checkInput[s_] := If[
-	And[IntegerQ@s, Positive@s], s,
-	FailValidation[GluonCV, "Scaled should be a Positive Integer."]
+	And[IntegerQ@s,Positive@s], s,
+	FailValidation[GluonCVLayer, "Scaled should be a Positive Integer."]
 ];
-
-computeSize[in_List, s_Integer] := Prepend[s Rest@in, First@in / s];
 
 checkOutput[s_] := If[
 	IntegerQ@First@s, s,
 	FailValidation[GluonCVLayer, "Illegal magnification."]
 ];
 
-Writer : Function[
+Writer: Function[
 	input = GetInput["Input", "Batchwise"];
 	index = SowNode["reshape", input, "shape" -> {0, -4, -1, #Scaled^2, 0, 0}];
 	index = SowNode["reshape", index, "shape" -> {0, 0, -4, #Scaled, #Scaled, 0, 0}];
