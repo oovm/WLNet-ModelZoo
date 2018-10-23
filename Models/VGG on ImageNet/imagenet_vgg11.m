@@ -40,9 +40,14 @@ getFC[i_, n_] := LinearLayer[n,
 	"Weights" -> params["arg:vgg0_dense" <> i <> "_weight"],
 	"Biases" -> params["arg:vgg0_dense" <> i <> "_bias"]
 ]
-getBlock[i_, j_] := NetChain@Flatten@Table[{getCN[ToString@n], Ramp}, {n, i, j}]
+pool := PoolingLayer[{2, 2}, "Stride" -> 2]
+getBlock[i_, j_] := NetChain@Flatten[{
+Table[{getCN[ToString@n], Ramp}, {n, i, j}],
+pool
+}]
+
 getBlock2[i_, j_] := NetChain@{getFC[ToString@i, j], Ramp, DropoutLayer[0.5]}
-pool = PoolingLayer[{2, 2}, "Stride" -> 2]
+
 
 
 (* ::Subchapter:: *)
@@ -50,14 +55,14 @@ pool = PoolingLayer[{2, 2}, "Stride" -> 2]
 
 
 mainNet = NetChain[{
-	getBlock[0, 0], pool,
-	getBlock[1, 1], pool,
-	getBlock[2, 3], pool,
-	getBlock[4, 5], pool,
-	getBlock[6, 7], pool,
+	getBlock[0, 0], 
+	getBlock[1, 1], 
+	getBlock[2, 3], 
+	getBlock[4, 5],
+	getBlock[6, 7],
 	getBlock2[0, 4096],
 	getBlock2[1, 4096],
-	getFC["2", 1000]
+	{getFC["2", 1000],SoftmaxLayer[]}
 },
 	"Input" -> encoder, "Output" -> decoder
 ]

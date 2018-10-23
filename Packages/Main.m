@@ -7,7 +7,7 @@ $GluonCVData = FileNameJoin[{$UserBaseDirectory, "ApplicationData", "GluonCV"}];
 
 
 GluonCV = <|
-	"Helper"->TrueQ@GluonCV`helper,
-	"Layers"->TrueQ@$LoadingLayers
+	"Helper"->TrueQ@GluonCV`helper
+	(*"Layers"->TrueQ@$LoadingLayers*)
 |>;
 End[]
