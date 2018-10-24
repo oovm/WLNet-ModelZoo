@@ -2,6 +2,14 @@
 *.iml
 .idea
 
+# Raw Models
+.link/*/*.npy
+.link/*/*.npz
+.link/*/*.pkl
+.link/*/*.pth
+.link/*/*.json
+.link/*/*.params
+
 # models
 *.WLNet
 *.WMLF
@@ -9,3 +17,4 @@
 
 # Notebook
 *.nb
+
