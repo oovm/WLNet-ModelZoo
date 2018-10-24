@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 # coding=utf-8
 import numpy as npz
-from numpy import random
 import wolframclient.serializers as wxf
 
 
 def npz2wxf(path):
-	data = npz.load(path)
-	wxf.export(data, path + '.wxf', target_format='wxf')
+    data = npz.load(path)
+    wxf.export(data, path + '.wxf', target_format='wxf')
 
 
 a = npz.array([[1, 2, 3], [4, 5, 6]])

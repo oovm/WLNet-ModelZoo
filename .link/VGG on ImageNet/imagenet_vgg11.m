@@ -42,8 +42,8 @@ getFC[i_, n_] := LinearLayer[n,
 ]
 pool := PoolingLayer[{2, 2}, "Stride" -> 2]
 getBlock[i_, j_] := NetChain@Flatten[{
-Table[{getCN[ToString@n], Ramp}, {n, i, j}],
-pool
+	Table[{getCN[ToString@n], Ramp}, {n, i, j}],
+	pool
 }]
 
 getBlock2[i_, j_] := NetChain@{getFC[ToString@i, j], Ramp, DropoutLayer[0.5]}
@@ -55,14 +55,14 @@ getBlock2[i_, j_] := NetChain@{getFC[ToString@i, j], Ramp, DropoutLayer[0.5]}
 
 
 mainNet = NetChain[{
-	getBlock[0, 0], 
-	getBlock[1, 1], 
-	getBlock[2, 3], 
+	getBlock[0, 0],
+	getBlock[1, 1],
+	getBlock[2, 3],
 	getBlock[4, 5],
 	getBlock[6, 7],
 	getBlock2[0, 4096],
 	getBlock2[1, 4096],
-	{getFC["2", 1000],SoftmaxLayer[]}
+	{getFC["2", 1000], SoftmaxLayer[]}
 },
 	"Input" -> encoder, "Output" -> decoder
 ]
