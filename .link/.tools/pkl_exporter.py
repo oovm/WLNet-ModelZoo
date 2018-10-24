@@ -18,6 +18,7 @@ def pkl2wxf(path):
     wxf.export(objs, path + '.wxf', target_format='wxf')
 
 
+''' test
 f = open('objs.pkl', 'wb')
 # Test basic types
 testDict = {
@@ -29,3 +30,4 @@ testDict = {
 pkl.dump(testDict, f)
 f.close()
 pkl2wxf('objs.pkl')
+'''

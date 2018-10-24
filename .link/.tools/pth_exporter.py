@@ -10,4 +10,6 @@ def pth2wxf(path):
     wxf.export(npy, path + '.wxf', target_format='wxf')
 
 
+''' test
 pth2wxf('checkpoint.pth')
+'''
