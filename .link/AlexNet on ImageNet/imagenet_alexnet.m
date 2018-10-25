@@ -47,23 +47,30 @@ getFC[i_, n_] := LinearLayer[n,
 
 
 mainNet = NetChain[{
-	getCN["0", 2, 4], Ramp,
+	getCN["0", 2, 4],
+	ElementwiseLayer["ReLU"],
 	PoolingLayer[{3, 3}, "Stride" -> 2],
-	getCN["1", 2, 1], Ramp,
+	getCN["1", 2, 1],
+	ElementwiseLayer["ReLU"],
 	PoolingLayer[{3, 3}, "Stride" -> 2],
-	getCN["2", 1, 1], Ramp,
-	getCN["3", 1, 1], Ramp,
-	getCN["4", 1, 1], Ramp,
+	getCN["2", 1, 1],
+	ElementwiseLayer["ReLU"],
+	getCN["3", 1, 1],
+	ElementwiseLayer["ReLU"],
+	getCN["4", 1, 1],
+	ElementwiseLayer["ReLU"],
 	PoolingLayer[{3, 3}, "Stride" -> 2],
 	FlattenLayer[],
-	getFC["0", 4096], Ramp,
+	getFC["0", 4096]
+	, ElementwiseLayer["ReLU"],
 	DropoutLayer[0.5],
-	getFC["1", 4096], Ramp,
+	getFC["1", 4096],
+	ElementwiseLayer["ReLU"],
 	DropoutLayer[0.5],
 	getFC["2", 1000],
 	SoftmaxLayer[]
 },
-	"Input" -> encoder ,
+	"Input" -> encoder,
 	"Output" -> decoder
 ]
 
@@ -72,4 +79,4 @@ mainNet = NetChain[{
 (*Export Model*)
 
 
-Export["imagenet_alexnet.WXF", mainNet]
+Export["AlexNet trained on ImageNet.WXF", mainNet]
