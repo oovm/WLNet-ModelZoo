@@ -47,6 +47,6 @@ doTest["Resnet56-V2 trained on CIFAR10"]
 doTest["Resnet110-V2 trained on CIFAR10"]
 
 
-doTest["Resnet16-Wide10 trained on CIFAR10"]
-doTest["Resnet28-Wide10 trained on CIFAR10"]
-doTest["Resnet40-Wide8 trained on CIFAR10"]
+doTest["WRN16-10 trained on CIFAR10"]
+doTest["WRN28-10 trained on CIFAR10"]
+doTest["WRN40-8 trained on CIFAR10"]
