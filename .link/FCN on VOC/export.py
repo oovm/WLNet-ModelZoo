@@ -7,6 +7,6 @@ def zoo_import(name, head=''):
     net = gz.get_model(name, pretrained=True)
     export_block(head + name, net, preprocess=True)
 
-# can not download
-# zoo_import('fcn_resnet50_voc')
-# zoo_import('fcn_resnet101_voc')
+
+zoo_import('fcn_resnet50_voc')
+zoo_import('fcn_resnet101_voc')

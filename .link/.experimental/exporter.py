@@ -8,5 +8,6 @@ def zoo_import(name, head=''):
     export_block(head + name, net, preprocess=True)
 
 
-zoo_import('squeezenet1.0')
-zoo_import('squeezenet1.1')
+zoo_import('fcn_resnet101_voc')
+zoo_import('psp_resnet101_voc')
+zoo_import('deeplab_resnet101_voc')
