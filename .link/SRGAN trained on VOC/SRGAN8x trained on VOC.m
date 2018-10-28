@@ -25,7 +25,7 @@ encoder = NetEncoder[{"Image", {640, 360}}]
 decoder = NetDecoder["Image"]
 
 
-(* ::Subchapter::Closed:: *)
+(* ::Subchapter:: *)
 (*Pre-defined Structure*)
 
 
@@ -44,7 +44,7 @@ getBN[i_] := BatchNormalizationLayer[
 
 (*Notice that there is no single prelu in WLNet*)
 getPrelu[i_] := ParametricRampLayer[
-	"Slope" -> Flatten@ConstantArray[Normal@ params["arg:learned_" <> ToString[9]], 64]
+	"Slope" -> Flatten@ConstantArray[Normal@params["arg:learned_" <> ToString[i]], 64]
 ]
 
 getBlock[i_] := NetGraph[{
