@@ -9,7 +9,6 @@ https://github.com/WolframRhodium/Super-Resolution-Zoo/tree/master/SRGAN/SRGAN%4
 ---
 
 ### Reference
-### Reference
 ```TeX
 @ImageSuperResolution{isola2017image,
   title={Image-to-image translation with conditional adversarial networks},
