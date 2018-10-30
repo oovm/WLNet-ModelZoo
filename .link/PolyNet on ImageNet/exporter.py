@@ -4,10 +4,10 @@ import re
 
 import torch
 import wolframclient.serializers as wxf
-from pretrainedmodels import xception
+from pretrainedmodels import polynet
 
 # manually fix this first
-model = xception(num_classes=1000, pretrained=False).cpu()
+model = polynet(num_classes=1000, pretrained='imagenet')
 net = list(model.modules())
 params = model.state_dict()
 
@@ -19,5 +19,5 @@ npy = {
     if not re.match('.*_tracked$', key)
 }
 
-wxf.export(npy, 'imagenet_xception.wxf', target_format='wxf')
-# torch.save(model, 'imagenet_xception.pth')
+wxf.export(npy, 'imagenet_polynet.wxf', target_format='wxf')
+# torch.save(model, 'imagenet_polynet.pth')
