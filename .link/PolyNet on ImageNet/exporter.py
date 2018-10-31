@@ -20,4 +20,4 @@ npy = {
 }
 
 wxf.export(npy, 'imagenet_polynet.wxf', target_format='wxf')
-# torch.save(model, 'imagenet_polynet.pth')
+torch.save(polynet(num_classes=1000), 'imagenet_polynet.pth')
