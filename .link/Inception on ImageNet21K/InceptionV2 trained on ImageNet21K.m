@@ -8,7 +8,7 @@ DateString[]
 
 
 (* ::Subitem:: *)
-(*Thu 1 Nov 2018 11:25:25*)
+(*Thu 1 Nov 2018 11:47:15*)
 
 
 (* ::Subchapter:: *)
@@ -23,17 +23,17 @@ params = NDArrayImport["Inception-0009.params"];
 
 
 mShift = {117, 117, 117} / 255;
-vShift = {0, 0, 0}^2;
-fliter[line_] := Block[
+vShift = {1, 1, 1} / 255^2;
+filter[line_] := Block[
 	{tag = StringSplit[First@StringSplit[line, ","], " "]},
 	StringJoin@{First[tag], "::", StringRiffle[Rest[tag], " "]}
-]
-tags = Sort[fliter /@ Import["synset.txt", "List"]];
-encoder = NetEncoder[{"Image", 224, "MeanImage" -> mShift}]
+];
+tags = filter /@ Import["synset.txt", "List"];
+encoder = NetEncoder[{"Image", 224, "MeanImage" -> mShift, "VarianceImage" -> vShift}]
 decoder = NetDecoder[{"Class", tags}]
 
 
-(* ::Subchapter:: *)
+(* ::Subchapter::Closed:: *)
 (*Pre-defined Structure*)
 
 
