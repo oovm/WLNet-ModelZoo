@@ -9,6 +9,8 @@
 .link/*/*.pth
 .link/*/*.json
 .link/*/*.params
+.link/*/*.h5
+.link/*/*.hdf5
 
 # models
 *.WLNet
