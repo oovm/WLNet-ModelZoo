@@ -11,6 +11,7 @@
 .link/*/*.params
 .link/*/*.h5
 .link/*/*.hdf5
+.link/*/*.txt
 
 # models
 *.WLNet
