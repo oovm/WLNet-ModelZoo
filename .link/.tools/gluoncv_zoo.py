@@ -12,6 +12,7 @@ def zoo_import(name, head=''):
     export_block(head + name, net, preprocess=True)
 
 
+'''test
 zoo_import('cifar_resnet20_v2')
 zoo_import('cifar_resnet56_v2')
 zoo_import('cifar_resnet110_v2')
@@ -19,3 +20,4 @@ zoo_import('cifar_resnet110_v2')
 zoo_import('cifar_wideresnet16_10')
 zoo_import('cifar_wideresnet28_10')
 zoo_import('cifar_wideresnet40_8')
+'''
