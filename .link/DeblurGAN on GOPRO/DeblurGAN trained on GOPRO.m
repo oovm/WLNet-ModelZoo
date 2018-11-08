@@ -8,7 +8,7 @@ DateString[]
 
 
 (* ::Subitem:: *)
-(*Sat 3 Nov 2018 22:22:07*)
+(*Thu 8 Nov 2018 19:05:21*)
 
 
 (* ::Subchapter:: *)
@@ -70,8 +70,9 @@ getBlock[i_] := Block[
 	NetMerge[path, Expand -> All]
 ];
 getBlock2[i_] := NetChain[{
-	getDC[i, 1, 2],
-	getBN[i + 21],
+	ResizeLayer[Scaled /@ {2, 2}, Resampling -> "Nearest"],
+	getCN[i, 1, 1],
+	getBN[i],
 	ElementwiseLayer["ReLU"]
 }];
 
@@ -85,17 +86,13 @@ mainNet = NetChain[{
 	getCN[1, 0, 1],
 	getBN[1],
 	ElementwiseLayer["ReLU"],
-	getCN[2, 1, 2],
-	getBN[2],
-	ElementwiseLayer["ReLU"],
-	getCN[3, 1, 2],
-	getBN[3],
-	ElementwiseLayer["ReLU"],
+	{getCN[2, 1, 2], getBN[2], ElementwiseLayer["ReLU"]},
+	{getCN[3, 1, 2], getBN[3], ElementwiseLayer["ReLU"]},
 	NetChain@Table[getBlock[i], {i, 4, 20, 2}],
-	getBlock2[1],
-	getBlock2[2],
+	getBlock2[22],
+	getBlock2[23],
 	PaddingLayer[Partition[{0, 0, 3, 3, 3, 3}, 2], "Padding" -> "Reflected"],
-	getCN[22, 0, 1],
+	getCN[24, 0, 1],
 	Tanh
 },
 	"Input" -> encoder,
