@@ -8,4 +8,5 @@ def zoo_import(name, head=''):
     export_block(head + name, net, preprocess=True)
 
 
-zoo_import('ssd_512_vgg16_atrous_voc')
+zoo_import('fcn_resnet50_ade')
+zoo_import('fcn_resnet101_ade')

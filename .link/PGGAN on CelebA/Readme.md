@@ -1,4 +1,4 @@
-### Remark
+## Remark
 
 > **@GalAster:**
 > I removed `ScaledConvolution` or so called  `WScaleLayer`, which means scaled the weights to `1/sqrt(channal)`.
@@ -8,19 +8,21 @@
 > **@GalAster:**
 > A word of caution: Do not store high-definition pictures in your notebook!
 
-# Example
+## Example
 
 ![Example](https://user-images.githubusercontent.com/17541209/48298682-47112e80-e4fc-11e8-81bd-5153afa10320.png)
 
-### Source
+## Source
 https://github.com/tkarras/progressive_growing_of_gans
 
-### Files
+## Files
 
-- Git Clone: True
-- Exporter: True
+- Git: `git clone https://github.com/tkarras/progressive_growing_of_gans.git`
+- Exporter: `./exporter.py`
 - Models: https://drive.google.com/drive/folders/15hvzxt_XxuokSmj0uO4xxMTMWVc0cIMU
+- Plugins:
+  - PixelNormalizationLayer
 
-### Reference
+## Reference
 
 
