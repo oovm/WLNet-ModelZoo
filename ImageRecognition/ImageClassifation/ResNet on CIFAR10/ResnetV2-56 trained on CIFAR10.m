@@ -7,14 +7,14 @@ DateString[]
 
 
 (* ::Subitem:: *)
-(*Tue 16 Oct 2018 20:03:11*)
+(*Tue 16 Oct 2018 15:56:56*)
 
 
 (* ::Subchapter:: *)
 (*Import Weights*)
 
 
-params = NDArrayImport["cifar_resnet20_v2-0000.params"];
+params = NDArrayImport["cifar_resnet56_v2-0000.params"];
 
 
 (* ::Subchapter:: *)
@@ -34,24 +34,24 @@ decoder = NetDecoder[{"Class", tags}]
 
 getBN[i_, j_] := BatchNormalizationLayer[
 	"Epsilon" -> 1*^-5,
-	"Beta" -> params["arg:cifarresnetv20_stage" <> i <> "_batchnorm" <> j <> "_beta"],
-	"Gamma" -> params["arg:cifarresnetv20_stage" <> i <> "_batchnorm" <> j <> "_gamma"],
-	"MovingMean" -> params["aux:cifarresnetv20_stage" <> i <> "_batchnorm" <> j <> "_running_mean"],
-	"MovingVariance" -> params["aux:cifarresnetv20_stage" <> i <> "_batchnorm" <> j <> "_running_var"]
+	"Beta" -> params["arg:cifarresnetv21_stage" <> i <> "_batchnorm" <> j <> "_beta"],
+	"Gamma" -> params["arg:cifarresnetv21_stage" <> i <> "_batchnorm" <> j <> "_gamma"],
+	"MovingMean" -> params["aux:cifarresnetv21_stage" <> i <> "_batchnorm" <> j <> "_running_mean"],
+	"MovingVariance" -> params["aux:cifarresnetv21_stage" <> i <> "_batchnorm" <> j <> "_running_var"]
 ]
 getBN2[j_] := BatchNormalizationLayer[
 	"Epsilon" -> 1*^-5,
-	"Beta" -> params["arg:cifarresnetv20_batchnorm" <> j <> "_beta"],
-	"Gamma" -> params["arg:cifarresnetv20_batchnorm" <> j <> "_gamma"],
-	"MovingMean" -> params["aux:cifarresnetv20_batchnorm" <> j <> "_running_mean"],
-	"MovingVariance" -> params["aux:cifarresnetv20_batchnorm" <> j <> "_running_var"]
+	"Beta" -> params["arg:cifarresnetv21_batchnorm" <> j <> "_beta"],
+	"Gamma" -> params["arg:cifarresnetv21_batchnorm" <> j <> "_gamma"],
+	"MovingMean" -> params["aux:cifarresnetv21_batchnorm" <> j <> "_running_mean"],
+	"MovingVariance" -> params["aux:cifarresnetv21_batchnorm" <> j <> "_running_var"]
 ]
 getCN[i_, j_, s_ : 1, p_ : 1] := ConvolutionLayer[
-	"Weights" -> params["arg:cifarresnetv20_stage" <> i <> "_conv" <> j <> "_weight"],
+	"Weights" -> params["arg:cifarresnetv21_stage" <> i <> "_conv" <> j <> "_weight"],
 	"Biases" -> None, "PaddingSize" -> p, "Stride" -> s
 ]
 getCN2[j_] := ConvolutionLayer[
-	"Weights" -> params["arg:cifarresnetv20_conv" <> j <> "_weight"],
+	"Weights" -> params["arg:cifarresnetv21_conv" <> j <> "_weight"],
 	"Biases" -> None, "PaddingSize" -> 1
 ]
 getBlock[i_, j_, k_ : 0] := NetGraph[{
@@ -82,15 +82,15 @@ getBlock3[] := NetChain[{
 
 mainNet = NetChain[{
 	NetChain[{getBN2["0"], getCN2["0"], getBlock[1, 0, 0]}],
-	NetChain@Table[getBlock[1, i, 0], {i, 2, 4, 2}],
+	NetChain@Table[getBlock[1, i, 0], {i, 2, 16, 2}],
 	getBlock2[2, 0],
-	NetChain@Table[getBlock[2, i, 1], {i, 2, 4, 2}],
+	NetChain@Table[getBlock[2, i, 1], {i, 2, 16, 2}],
 	getBlock2[3, 0],
-	NetChain@Table[getBlock[3, i, 1], {i, 2, 4, 2}],
+	NetChain@Table[getBlock[3, i, 1], {i, 2, 16, 2}],
 	getBlock3[],
 	LinearLayer[10,
-		"Weights" -> params["arg:cifarresnetv20_dense0_weight"],
-		"Biases" -> params["arg:cifarresnetv20_dense0_bias"]
+		"Weights" -> params["arg:cifarresnetv21_dense0_weight"],
+		"Biases" -> params["arg:cifarresnetv21_dense0_bias"]
 	],
 	SoftmaxLayer[]
 },
@@ -103,4 +103,4 @@ mainNet = NetChain[{
 (*Export Model*)
 
 
-Export["cifar_resnet20_v2.WXF", mainNet]
+Export["ResnetV2-56 trained on CIFAR10.WXF", mainNet]

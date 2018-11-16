@@ -103,4 +103,4 @@ mainNet = NetChain[{
 (*Export Model*)
 
 
-Export["cifar_resnet110_v2.WXF", mainNet]
+Export["ResnetV2-110 trained on CIFAR10.WXF", mainNet]
