@@ -29,6 +29,6 @@ VerificationTest[Head[model], NetChain, TestID -> "Loading Model"];
 VerificationTest[Head[data], List, TestID -> "Loading Data"];
 VerificationTest[Head[cm], ClassifierMeasurementsObject, TestID -> "Benchmark Testing"];
 VerificationTest[Head[dump], List, TestID -> "Result Dumping"];
-VerificationTest[Head[analyze], List, TestID -> "Analyzing"];
+VerificationTest[Head[analyze], Association, TestID -> "Analyzing"];
 
 EndTestSection[];

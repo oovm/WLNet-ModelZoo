@@ -1,0 +1,14 @@
+{
+    "plugins": ["json"],
+    "rules": {
+        "indent": ["error", 4],
+        "brace-style": "error",
+        "array-bracket-newline": [
+            "error", {
+                "multiline": true,
+                "minItems": 2
+            }
+        ]
+
+    }
+}

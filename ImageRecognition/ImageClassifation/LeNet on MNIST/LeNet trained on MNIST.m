@@ -30,3 +30,6 @@ Export["LeNet trained on MNIST.WXF", mainNet]
 
 
 test = TestReport["LeNet trained on MNIST.mt"]
+
+
+
