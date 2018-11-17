@@ -1,13 +1,14 @@
 (* ::Package:: *)
 
 SetDirectory@NotebookDirectory[];
-Needs["MXNetLink`"]
-Needs["NeuralNetworks`"]
+<< NeuralNetworks`
+<< MXNetLink`
+<< DeepMath`
 DateString[]
 
 
 (* ::Subitem:: *)
-(*Thu 25 Oct 2018 20:51:12*)
+(*Sat 17 Nov 2018 14:55:36*)
 
 
 (* ::Subchapter:: *)
@@ -28,30 +29,4 @@ Export["LeNet trained on MNIST.WXF", mainNet]
 (*Test*)
 
 
-TestReport["LeNet trained on MNIST.mt"]
-
-
-mainNet=Import@"LeNet trained on MNIST.WXF";
-obj = ResourceObject["MNIST"];
-trainingData = ResourceData[obj, "TrainingData"];
-testData = ResourceData[obj, "TestData"];
-
-
-cm=ClassifierMeasurements[mainNet,testData]
-
-
-cm@{
-"ClassMeanCrossEntropy",
-"EvaluationTime",
-"ClassRejectionRate",
-	"Properties"
-
-
-
-}
-
-
-ClassifierMeasurements//PD
-
-
-SetDirectory@NotebookDirectory[];
+test = TestReport["LeNet trained on MNIST.mt"]

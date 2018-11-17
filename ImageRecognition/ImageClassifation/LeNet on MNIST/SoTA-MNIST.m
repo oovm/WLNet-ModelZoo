@@ -30,12 +30,7 @@ doTest[name_] := Block[
 (*Warm-up*)
 
 
-With[{size = 1000},
-	x = RandomReal[1, {size, size}];
-	layer = NetInitialize@LinearLayer[size, "Input" -> size, "Biases" -> None];
-	time = First@RepeatedTiming[layer[x, TargetDevice -> "GPU"]];
-	Quantity[size^2 * (2 * size \[Minus] 1) / time, "FLOPS"]
-]
+
 
 
 (* ::Section:: *)
