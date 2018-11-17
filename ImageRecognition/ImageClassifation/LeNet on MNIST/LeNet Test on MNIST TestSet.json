@@ -1,8 +1,11 @@
 {
-    "Date": "Sat 17 Nov 2018 16:38:55",
+    "Name": "LeNet Tested on MNIST TestSet",
+    "Date": "Sat 17 Nov 2018 19:36:22",
+    "Task": "Classification",
     "Net": {
         "Size": 1.72432,
         "Parameters": 431080,
+        "Nodes": 11,
         "Layers": {
             "ConvolutionLayer": 2,
             "ElementwiseLayer": 3,
@@ -10,8 +13,22 @@
             "FlattenLayer": 1,
             "LinearLayer": 2,
             "SoftmaxLayer": 1
-        },
-        "Nodes": 11
+        }
+    },
+    "Indicator": {
+        "Top-1": 0.9848,
+        "Top-2": 0.9973,
+        "Top-3": 0.9991,
+        "Top-5": 0.9999,
+        "LogLikelihood": -659.657,
+        "CrossEntropyLoss": 0.0659657,
+        "ProbabilityLoss": 0.00522323,
+        "MeanProbability": 0.981506,
+        "GeometricMeanProbability": 0.936163,
+        "VarianceProbability": 0.0130536,
+        "ScottPi": 0.983105,
+        "CohenKappa": 0.983105,
+        "RejectionRate": 0
     },
     "Dual": {
         "Count": {
@@ -121,11 +138,6 @@
             [2, 0, 0, 2, 3, 5, 0, 3, 0, 994]
         ]
     },
-    "Index": 7,
-    "TestID": "Analyzing",
-    "Result": "Success",
-    "Time": 8.17581,
-    "MemoryChange": 13.7619,
     "Test": [
         {
             "Index": 1,
@@ -138,43 +150,43 @@
             "Index": 2,
             "TestID": "GPU Warm-Up",
             "Result": "Success",
-            "Time": 4.57631,
-            "MemoryChange": 53.492
+            "Time": 8.42563,
+            "MemoryChange": 53.2446
         },
         {
             "Index": 3,
             "TestID": "Loading Model",
             "Result": "Success",
-            "Time": 0.034906,
+            "Time": 0.0379246,
             "MemoryChange": 1.76696
         },
         {
             "Index": 4,
             "TestID": "Loading Data",
             "Result": "Success",
-            "Time": 2.06818,
-            "MemoryChange": 35.0958
+            "Time": 2.02956,
+            "MemoryChange": 34.5418
         },
         {
             "Index": 5,
             "TestID": "Benchmark Testing",
             "Result": "Success",
-            "Time": 10.3561,
-            "MemoryChange": 17.2234
+            "Time": 18.9374,
+            "MemoryChange": 16.5781
         },
         {
             "Index": 6,
             "TestID": "Result Dumping",
             "Result": "Success",
-            "Time": 0.0817804,
+            "Time": 0.19564,
             "MemoryChange": -1.12314
         },
         {
             "Index": 7,
             "TestID": "Analyzing",
             "Result": "Success",
-            "Time": 8.17581,
-            "MemoryChange": 13.7619
+            "Time": 7.94505,
+            "MemoryChange": 13.9795
         }
     ]
 }

@@ -2,12 +2,13 @@ BeginTestSection["ClassificationBenchmark"]
 
 (*Evaluation*)
 VerificationTest[
-	name = "LeNet trained on MNIST";
-	model := model = Import[name <> ".WXF"];
+	netName = "LeNet trained on MNIST";
+	testName = "LeNet Tested on MNIST TestSet";
+	model := model = Import[netName <> ".WXF"];
 	data := data = ResourceData[ResourceObject["MNIST"], "TestData"];
 	cm := cm = ClassifierMeasurements[model, data];
 	dump := dump = DumpSave[".cache.mx", cm];
-	analyze := analyze = ClassifyAnalyze[<|"Result" -> cm, "Net" -> model|>];,
+	analyze := analyze = ClassifyAnalyze[<|"Name" -> testName, "Result" -> cm, "Net" -> model|>];,
 	Null, TestID -> "Pre-define"
 ];
 
