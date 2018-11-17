@@ -2,22 +2,30 @@
 *.iml
 .idea
 
+# Cache
+*.cpy
+*.mx
+
 # Raw Models
 .link/*/*.npy
 .link/*/*.npz
 .link/*/*.pkl
-.link/*/*.pth
 .link/*/*.json
-.link/*/*.params
-.link/*/*.h5
-.link/*/*.hdf5
 .link/*/*.txt
 
 # models
 *.WLNet
 *.WMLF
 *.WXF
+*.params
+*.h5
+*.hdf5
+*.pth
 
 # Notebook
 *.nb
 
+# Picture
+*.png
+*.jpg
+*.jpeg

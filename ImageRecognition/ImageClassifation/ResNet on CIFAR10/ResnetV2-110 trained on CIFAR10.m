@@ -7,7 +7,7 @@ DateString[]
 
 
 (* ::Subitem:: *)
-(*Tue 16 Oct 2018 16:03:15*)
+(*Fri 16 Nov 2018 14:07:33*)
 
 
 (* ::Subchapter:: *)
@@ -28,7 +28,7 @@ tags = {"airplane", "automobile", "bird", "cat", "deer", "dog", "frog", "horse",
 decoder = NetDecoder[{"Class", tags}]
 
 
-(* ::Subchapter:: *)
+(* ::Subchapter::Closed:: *)
 (*Pre-defined Structure*)
 
 
@@ -80,19 +80,25 @@ getBlock3[] := NetChain[{
 (*Main*)
 
 
-mainNet = NetChain[{
-	NetChain[{getBN2["0"], getCN2["0"], getBlock[1, 0, 0]}],
+extractor = NetChain[{
+	getBN2["0"],
+	getCN2["0"],
+	getBlock[1, 0, 0],
 	NetChain@Table[getBlock[1, i, 0], {i, 2, 34, 2}],
 	getBlock2[2, 0],
 	NetChain@Table[getBlock[2, i, 1], {i, 2, 34, 2}],
 	getBlock2[3, 0],
 	NetChain@Table[getBlock[3, i, 1], {i, 2, 34, 2}],
-	getBlock3[],
-	LinearLayer[10,
-		"Weights" -> params["arg:cifarresnetv22_dense0_weight"],
-		"Biases" -> params["arg:cifarresnetv22_dense0_bias"]
-	],
-	SoftmaxLayer[]
+	getBlock3[]
+}];
+classifier = LinearLayer[10,
+	"Weights" -> params["arg:cifarresnetv22_dense0_weight"],
+	"Biases" -> params["arg:cifarresnetv22_dense0_bias"]
+];
+mainNet = NetChain[{
+	"Extractor" -> extractor,
+	"Classifier" -> classifier,
+	"Predictor" -> SoftmaxLayer[]
 },
 	"Input" -> encoder,
 	"Output" -> decoder
