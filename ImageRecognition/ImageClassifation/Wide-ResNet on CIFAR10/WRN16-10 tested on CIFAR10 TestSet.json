@@ -1,0 +1,195 @@
+{
+    "Name": "WRN16-10 tested on CIFAR10 TestSet",
+    "Date": "Sat 17 Nov 2018 23:33:14",
+    "Task": "Classification",
+    "Net": {
+        "Size": 68.5028,
+        "Parameters": 17125702,
+        "Nodes": 53,
+        "Layers": {
+            "AggregationLayer": 1,
+            "BatchNormalizationLayer": 15,
+            "ConvolutionLayer": 16,
+            "ElementwiseLayer": 13,
+            "LinearLayer": 1,
+            "SoftmaxLayer": 1,
+            "ThreadingLayer": 6
+        }
+    },
+    "Indicator": {
+        "Top-1": 0.965,
+        "Top-2": 0.9901,
+        "Top-3": 0.9963,
+        "Top-5": 0.9989,
+        "LogLikelihood": -1152.98,
+        "CrossEntropyLoss": 0.115298,
+        "ProbabilityLoss": 0.0171053,
+        "MeanProbability": 0.953702,
+        "GeometricMeanProbability": 0.891101,
+        "VarianceProbability": 0.0274391,
+        "ScottPi": 0.961111,
+        "CohenKappa": 0.961111,
+        "Speed": 41.81,
+        "RejectionRate": 0
+    },
+    "Dual": {
+        "Count": {
+            "airplane": 1000,
+            "automobile": 1000,
+            "bird": 1000,
+            "cat": 1000,
+            "deer": 1000,
+            "dog": 1000,
+            "frog": 1000,
+            "horse": 1000,
+            "ship": 1000,
+            "truck": 1000
+        },
+        "TPRate": {
+            "airplane": 0.978,
+            "automobile": 0.977,
+            "bird": 0.948,
+            "cat": 0.93,
+            "deer": 0.977,
+            "dog": 0.927,
+            "frog": 0.982,
+            "horse": 0.974,
+            "ship": 0.982,
+            "truck": 0.975
+        },
+        "TNRate": {
+            "airplane": 0.995111,
+            "automobile": 0.998222,
+            "bird": 0.995222,
+            "cat": 0.991222,
+            "deer": 0.996111,
+            "dog": 0.993889,
+            "frog": 0.997667,
+            "horse": 0.999222,
+            "ship": 0.996667,
+            "truck": 0.997778
+        },
+        "FPRate": {
+            "airplane": 0.00488889,
+            "automobile": 0.00177778,
+            "bird": 0.00477778,
+            "cat": 0.00877778,
+            "deer": 0.00388889,
+            "dog": 0.00611111,
+            "frog": 0.00233333,
+            "horse": 0.000777778,
+            "ship": 0.00333333,
+            "truck": 0.00222222
+        },
+        "FNRate": {
+            "airplane": 0.022,
+            "automobile": 0.023,
+            "bird": 0.052,
+            "cat": 0.07,
+            "deer": 0.023,
+            "dog": 0.073,
+            "frog": 0.018,
+            "horse": 0.026,
+            "ship": 0.018,
+            "truck": 0.025
+        },
+        "F1Score": {
+            "airplane": 0.967359,
+            "automobile": 0.980432,
+            "bird": 0.952285,
+            "cat": 0.925834,
+            "deer": 0.971173,
+            "dog": 0.935419,
+            "frog": 0.980529,
+            "horse": 0.983342,
+            "ship": 0.976143,
+            "truck": 0.977444
+        }
+    },
+    "Threshold": {
+        "Uncertainty": [
+            0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.81, 0.82, 0.83, 0.84, 0.85, 0.86, 0.87,
+            0.88, 0.89, 0.9, 0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98, 0.99, 0.991, 0.992, 0.993, 0.994, 0.995,
+            0.996, 0.997, 0.998, 0.999, 0.9991, 0.9992, 0.9993, 0.9994, 0.9995, 0.9996, 0.9997, 0.9998, 0.9999
+        ],
+        "AcceptanceRate": [
+            0.965097, 0.965193, 0.965673, 0.966236, 0.967667, 0.969673, 0.971362, 0.974255, 0.976587, 0.979225,
+            0.981679, 0.983837, 0.98411, 0.985023, 0.985311, 0.985701, 0.986199, 0.987009, 0.987398, 0.9878, 0.988397,
+            0.989097, 0.990025, 0.991055, 0.991983, 0.992046, 0.992426, 0.993122, 0.993921, 0.995161, 0.997162,
+            0.997742, 0.997831, 0.998041, 0.998234, 0.998419, 0.998867, 0.998856, 0.999318, 1., 1., 1., 1., 1., 1., 1,
+            1, 1, 1
+        ],
+        "RejectionRate": [
+            0.0001, 0.0002, 0.0008, 0.0019, 0.0041, 0.0075, 0.0118, 0.0173, 0.0219, 0.0277, 0.0339, 0.041, 0.0434,
+            0.0452, 0.0469, 0.0489, 0.0508, 0.0532, 0.0557, 0.0574, 0.0606, 0.0645, 0.0677, 0.0721, 0.077, 0.0822,
+            0.089, 0.0986, 0.1117, 0.132, 0.1897, 0.2029, 0.2161, 0.2344, 0.2637, 0.3043, 0.3819, 0.5629, 0.8533,
+            0.9919, 0.9945, 0.9967, 0.9982, 0.9989, 0.9996, 1., 1., 1., 1.
+        ]
+    },
+    "Confusion": {
+        "Classes": ["airplane", "automobile", "bird", "cat", "deer", "dog", "frog", "horse", "ship", "truck"],
+        "ConfusionMatrix": [
+            [978, 0, 5, 2, 1, 0, 1, 0, 12, 1],
+            [2, 977, 0, 1, 0, 0, 0, 0, 4, 16],
+            [14, 0, 948, 12, 9, 7, 7, 0, 3, 0],
+            [5, 1, 8, 930, 9, 34, 7, 0, 4, 2],
+            [0, 0, 7, 5, 977, 7, 1, 3, 0, 0],
+            [1, 0, 10, 45, 9, 927, 3, 4, 1, 0],
+            [5, 0, 6, 6, 0, 1, 982, 0, 0, 0],
+            [3, 0, 3, 7, 7, 6, 0, 974, 0, 0],
+            [10, 3, 3, 1, 0, 0, 0, 0, 982, 1],
+            [4, 12, 1, 0, 0, 0, 2, 0, 6, 975]
+        ]
+    },
+    "Test": [
+        {
+            "Index": 1,
+            "TestID": "Pre-define",
+            "Result": "Success",
+            "Time": 0,
+            "MemoryChange": 0.00204
+        },
+        {
+            "Index": 2,
+            "TestID": "GPU Warm-Up",
+            "Result": "Success",
+            "Time": 4.95182,
+            "MemoryChange": 52.0761
+        },
+        {
+            "Index": 3,
+            "TestID": "Loading Model",
+            "Result": "Success",
+            "Time": 0.766985,
+            "MemoryChange": 68.7395
+        },
+        {
+            "Index": 4,
+            "TestID": "Loading Data",
+            "Result": "Success",
+            "Time": 0.354054,
+            "MemoryChange": 42.3256
+        },
+        {
+            "Index": 5,
+            "TestID": "Benchmark Test",
+            "Result": "Success",
+            "Time": 402.325,
+            "MemoryChange": 15.3367
+        },
+        {
+            "Index": 6,
+            "TestID": "Result Dump",
+            "Result": "Success",
+            "Time": 0.238366,
+            "MemoryChange": -1.1649
+        },
+        {
+            "Index": 7,
+            "TestID": "Analyzing",
+            "Result": "MessagesFailure",
+            "Time": 8.04391,
+            "MemoryChange": 22.1369
+        }
+    ]
+}
