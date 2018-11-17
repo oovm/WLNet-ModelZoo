@@ -1,8 +1,9 @@
 (* ::Package:: *)
 
 SetDirectory@NotebookDirectory[];
-Needs["MXNetLink`"]
-Needs["NeuralNetworks`"]
+<< NeuralNetworks`
+<< MXNetLink`
+<< DeepMath`
 DateString[]
 
 
@@ -107,11 +108,9 @@ mainNet = NetChain[{
 	"Output" -> decoder
 ]
 
+
 (* ::Subchapter:: *)
 (*Export Model*)
-
-
-
 
 
 Export["WRN28-10 trained on CIFAR10.WXF", mainNet]
@@ -123,6 +122,3 @@ Export["WRN28-10 trained on CIFAR10.WXF", mainNet]
 
 test = TestReport["WRN28-10 trained on CIFAR10.mt"]
 ClassifyAnalyzeExport[analyze, test]
-
-
-
