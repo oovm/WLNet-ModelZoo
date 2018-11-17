@@ -1,0 +1,194 @@
+{
+	"Name": "ResnetV2-20 tested on CIFAR10 TestSet",
+	"Date": "Sat 17 Nov 2018 22:08:43",
+	"Task": "Classification",
+	"Net": {
+		"Size": 1.09468,
+		"Parameters": 273670,
+		"Nodes": 72,
+		"Layers": {
+			"BatchNormalizationLayer": 20,
+			"ConvolutionLayer": 21,
+			"ElementwiseLayer": 19,
+			"ThreadingLayer": 9,
+			"AggregationLayer": 1,
+			"LinearLayer": 1,
+			"SoftmaxLayer": 1
+		}
+	},
+	"Indicator": {
+		"Top-1": 0.9239,
+		"Top-2": 0.9769,
+		"Top-3": 0.9902,
+		"Top-5": 0.9979,
+		"LogLikelihood": -2438.72,
+		"CrossEntropyLoss": 0.243872,
+		"ProbabilityLoss": 0.0338326,
+		"MeanProbability": 0.904426,
+		"GeometricMeanProbability": 0.783588,
+		"VarianceProbability": 0.0555114,
+		"ScottPi": 0.915443,
+		"CohenKappa": 0.915444,
+		"Speed": 5.68,
+		"RejectionRate": 0
+	},
+	"Dual": {
+		"Count": {
+			"airplane": 1000,
+			"automobile": 1000,
+			"bird": 1000,
+			"cat": 1000,
+			"deer": 1000,
+			"dog": 1000,
+			"frog": 1000,
+			"horse": 1000,
+			"ship": 1000,
+			"truck": 1000
+		},
+		"TPRate": {
+			"airplane": 0.946,
+			"automobile": 0.965,
+			"bird": 0.898,
+			"cat": 0.834,
+			"deer": 0.951,
+			"dog": 0.872,
+			"frog": 0.917,
+			"horse": 0.939,
+			"ship": 0.966,
+			"truck": 0.951
+		},
+		"TNRate": {
+			"airplane": 0.988778,
+			"automobile": 0.996333,
+			"bird": 0.988889,
+			"cat": 0.983778,
+			"deer": 0.989778,
+			"dog": 0.986667,
+			"frog": 0.996222,
+			"horse": 0.995778,
+			"ship": 0.993667,
+			"truck": 0.995556
+		},
+		"FPRate": {
+			"airplane": 0.0112222,
+			"automobile": 0.00366667,
+			"bird": 0.0111111,
+			"cat": 0.0162222,
+			"deer": 0.0102222,
+			"dog": 0.0133333,
+			"frog": 0.00377778,
+			"horse": 0.00422222,
+			"ship": 0.00633333,
+			"truck": 0.00444444
+		},
+		"FNRate": {
+			"airplane": 0.054,
+			"automobile": 0.035,
+			"bird": 0.102,
+			"cat": 0.166,
+			"deer": 0.049,
+			"dog": 0.128,
+			"frog": 0.083,
+			"horse": 0.061,
+			"ship": 0.034,
+			"truck": 0.049
+		},
+		"F1Score": {
+			"airplane": 0.924279,
+			"automobile": 0.965966,
+			"bird": 0.898899,
+			"cat": 0.842424,
+			"deer": 0.930984,
+			"dog": 0.875502,
+			"frog": 0.940031,
+			"horse": 0.949924,
+			"ship": 0.955017,
+			"truck": 0.955299
+		}
+	},
+	"Threshold": {
+		"Uncertainty": [
+			0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.81, 0.82, 0.83, 0.84, 0.85, 0.86, 0.87,
+			0.88, 0.89, 0.9, 0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98, 0.99, 0.991, 0.992, 0.993, 0.994, 0.995,
+			0.996, 0.997, 0.998, 0.999, 0.9991, 0.9992, 0.9993, 0.9994, 0.9995, 0.9996, 0.9997, 0.9998, 0.9999
+		],
+		"AcceptanceRate": [
+			0.924, 0.9243, 0.9246, 0.9264, 0.9295, 0.9333, 0.9401, 0.9453, 0.95, 0.9538, 0.9571, 0.9623, 0.9645, 0.9649,
+			0.9667, 0.9676, 0.9684, 0.9699, 0.9705, 0.9717, 0.9731, 0.9745, 0.9761, 0.9777, 0.98, 0.9826, 0.9846,
+			0.9865, 0.9894, 0.9912, 0.9944, 0.9949, 0.9954, 0.9959, 0.9963, 0.9969, 0.9972, 0.9975, 0.9976, 0.9983,
+			0.9992, 0.9996, 0.9995, 0.9994, 1., 1., 1., 1., 1.
+		],
+		"RejectionRate": [
+			0.0001, 0.0004, 0.0011, 0.004, 0.0091, 0.0174, 0.0305, 0.0431, 0.0566, 0.0662, 0.0793, 0.0953, 0.0998,
+			0.1032, 0.108, 0.1122, 0.1166, 0.1206, 0.1246, 0.1303, 0.1347, 0.1412, 0.1476, 0.1554, 0.1658, 0.1769,
+			0.1891, 0.2068, 0.227, 0.258, 0.3205, 0.3319, 0.3445, 0.3604, 0.3769, 0.3966, 0.4264, 0.4718, 0.549, 0.7077,
+			0.7341, 0.7624, 0.7893, 0.8199, 0.8541, 0.8911, 0.9276, 0.9618, 0.9915
+		]
+	},
+	"Confusion": {
+		"Classes": ["airplane", "automobile", "bird", "cat", "deer", "dog", "frog", "horse", "ship", "truck"],
+		"ConfusionMatrix": [
+			[946, 1, 9, 3, 2, 2, 2, 2, 25, 8],
+			[5, 965, 0, 2, 1, 0, 0, 0, 7, 20],
+			[25, 0, 898, 17, 22, 14, 10, 9, 3, 2],
+			[19, 2, 22, 834, 18, 72, 15, 10, 5, 3],
+			[3, 0, 14, 11, 951, 7, 4, 10, 0, 0],
+			[4, 1, 16, 76, 22, 872, 2, 6, 0, 1],
+			[9, 1, 30, 24, 11, 3, 917, 1, 4, 0],
+			[6, 0, 6, 8, 16, 21, 1, 939, 2, 1],
+			[20, 5, 2, 1, 0, 1, 0, 0, 966, 5],
+			[10, 23, 1, 4, 0, 0, 0, 0, 11, 951]
+		]
+	},
+	"Test": [
+		{
+			"Index": 1,
+			"TestID": "Pre-define",
+			"Result": "Success",
+			"Time": 0,
+			"MemoryChange": 0.00204
+		},
+		{
+			"Index": 2,
+			"TestID": "GPU Warm-Up",
+			"Result": "Success",
+			"Time": 4.97705,
+			"MemoryChange": 65.1176
+		},
+		{
+			"Index": 3,
+			"TestID": "Loading Model",
+			"Result": "Success",
+			"Time": 0.0369016,
+			"MemoryChange": 1.45081
+		},
+		{
+			"Index": 4,
+			"TestID": "Loading Data",
+			"Result": "Success",
+			"Time": 0.394017,
+			"MemoryChange": 42.3258
+		},
+		{
+			"Index": 5,
+			"TestID": "Benchmark Test",
+			"Result": "Success",
+			"Time": 38.7599,
+			"MemoryChange": 15.7559
+		},
+		{
+			"Index": 6,
+			"TestID": "Result Dump",
+			"Result": "Success",
+			"Time": 0.210436,
+			"MemoryChange": -1.18253
+		},
+		{
+			"Index": 7,
+			"TestID": "Analyzing",
+			"Result": "Success",
+			"Time": 8.26185,
+			"MemoryChange": 23.148
+		}
+	]
+}

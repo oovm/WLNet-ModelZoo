@@ -1,13 +1,14 @@
 (* ::Package:: *)
 
 SetDirectory@NotebookDirectory[];
-Needs["MXNetLink`"]
-Needs["NeuralNetworks`"]
+<< NeuralNetworks`
+<< MXNetLink`
+<< DeepMath`
 DateString[]
 
 
 (* ::Subitem:: *)
-(*Fri 16 Nov 2018 14:07:00*)
+(*Sat 17 Nov 2018 22:07:58*)
 
 
 (* ::Subchapter:: *)
@@ -110,3 +111,14 @@ mainNet = NetChain[{
 
 
 Export["ResnetV2-20 trained on CIFAR10.WXF", mainNet]
+
+
+(* ::Subchapter:: *)
+(*Test*)
+
+
+test = TestReport["ResnetV2-20 trained on CIFAR10.mt"]
+ClassifyAnalyzeExport[analyze, test]
+
+
+
