@@ -38,22 +38,22 @@ getBN[i_, j_] := BatchNormalizationLayer[
 	"Gamma" -> params["arg:cifarresnetv22_stage" <> i <> "_batchnorm" <> j <> "_gamma"],
 	"MovingMean" -> params["aux:cifarresnetv22_stage" <> i <> "_batchnorm" <> j <> "_running_mean"],
 	"MovingVariance" -> params["aux:cifarresnetv22_stage" <> i <> "_batchnorm" <> j <> "_running_var"]
-]
+];
 getBN2[j_] := BatchNormalizationLayer[
 	"Epsilon" -> 1*^-5,
 	"Beta" -> params["arg:cifarresnetv22_batchnorm" <> j <> "_beta"],
 	"Gamma" -> params["arg:cifarresnetv22_batchnorm" <> j <> "_gamma"],
 	"MovingMean" -> params["aux:cifarresnetv22_batchnorm" <> j <> "_running_mean"],
 	"MovingVariance" -> params["aux:cifarresnetv22_batchnorm" <> j <> "_running_var"]
-]
+];
 getCN[i_, j_, s_ : 1, p_ : 1] := ConvolutionLayer[
 	"Weights" -> params["arg:cifarresnetv22_stage" <> i <> "_conv" <> j <> "_weight"],
 	"Biases" -> None, "PaddingSize" -> p, "Stride" -> s
-]
+];
 getCN2[j_] := ConvolutionLayer[
 	"Weights" -> params["arg:cifarresnetv22_conv" <> j <> "_weight"],
 	"Biases" -> None, "PaddingSize" -> 1
-]
+];
 getBlock[i_, j_, k_ : 0] := NetGraph[{
 	getBN[ToString[i], ToString[j]], Ramp, getCN[ToString[i], ToString[j + k]],
 	getBN[ToString[i], ToString[j + 1]], Ramp, getCN[ToString[i], ToString[j + 1 + k]],
@@ -61,7 +61,7 @@ getBlock[i_, j_, k_ : 0] := NetGraph[{
 }, {
 	NetPort["Input"] -> 7,
 	NetPort["Input"] -> 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
-}]
+}];
 getBlock2[i_, j_] := NetGraph[{
 	getBN[ToString[i], ToString[j + 0]], Ramp, getCN[ToString[i], ToString[j + 0], 2, 1],
 	getBN[ToString[i], ToString[j + 1]], Ramp, getCN[ToString[i], ToString[j + 1], 1, 1],
@@ -69,11 +69,11 @@ getBlock2[i_, j_] := NetGraph[{
 }, {
 	NetPort["Input"] -> 7 -> 8,
 	NetPort["Input"] -> 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 8
-}]
+}];
 getBlock3[] := NetChain[{
 	getBN2["1"], Ramp,
 	AggregationLayer[Mean]
-}]
+}];
 
 
 (* ::Subchapter:: *)
@@ -110,3 +110,31 @@ mainNet = NetChain[{
 
 
 Export["ResnetV2-110 trained on CIFAR10.WXF", mainNet]
+
+
+(* ::Subchapter:: *)
+(*Test*)
+
+
+<< MachineLearning`;<< NeuralNetworks`;<< MXNetLink`;<< DeepMath`;
+SetDirectory@NotebookDirectory[];DateString[]
+netName = "ResnetV2-110 trained on CIFAR10";
+name = "ResnetV2-110 tested on CIFAR10 TestSet"
+test = TestReport[name <> ".mt"]
+
+
+(* ::Subchapter:: *)
+(*Report*)
+
+
+upload = ImportString["\
+![High Precision Classification Curve.png](https://i.loli.net/2018/11/18/5bf15bdfd66aa.png)
+![Accuracy Rejection Curve.png](https://i.loli.net/2018/11/18/5bf15be0a79b3.png)
+![Classification Curve.png](https://i.loli.net/2018/11/18/5bf15be12b85b.png)
+![ConfusionMatrix.png](https://i.loli.net/2018/11/18/5bf15be16ea13.png)
+", "Data"];
+report = ClassificationBenchmark[analyze,
+	DeepMath`Tools`TestReportAnalyze[test],
+	"Image" -> AssociationThread[Rule @@ Transpose[StringSplit[#, {"![", "](", ")"}]& /@ upload]]
+];
+ClassificationBenchmark[name, report]
