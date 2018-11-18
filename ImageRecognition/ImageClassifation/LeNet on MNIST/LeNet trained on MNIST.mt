@@ -1,14 +1,13 @@
 BeginTestSection["ClassificationBenchmark"]
 
 
-
-(*Dependency check*)
+(*Dependency Check*)
 VerificationTest[
 	<< MachineLearning`;
 	<< NeuralNetworks`;
 	<< MXNetLink`;
 	<< DeepMath`;,
-	Null, TestID -> "Loading Dependency"
+	Null, TestID -> "Dependency Check"
 ];
 
 
@@ -23,6 +22,7 @@ VerificationTest[
 	analyze := analyze = ClassificationBenchmark[cm, "LeNet trained on MNIST"];,
 	Null, TestID -> "Pre-define"
 ];
+
 
 (*Warm-Up*)
 VerificationTest[
@@ -42,5 +42,6 @@ VerificationTest[Head[data], List, TestID -> "Loading Data"];
 VerificationTest[Head[cm], ClassifierMeasurementsObject, TestID -> "Benchmark Test"];
 VerificationTest[Head[dump], List, TestID -> "Result Dump"];
 VerificationTest[Head[analyze], Association, TestID -> "Analyzing"];
+
 
 EndTestSection[];
