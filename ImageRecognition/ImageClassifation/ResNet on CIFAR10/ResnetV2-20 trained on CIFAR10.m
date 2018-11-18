@@ -136,4 +136,4 @@ report = ClassificationBenchmark[analyze,
 	DeepMath`Tools`TestReportAnalyze[test],
 	"Image" -> AssociationThread[Rule @@ Transpose[StringSplit[#, {"![", "](", ")"}]& /@ upload]]
 ];
-ClassificationBenchmark["LeNet tested on MNIST TestSet", report]
+ClassificationBenchmark["ResnetV2-20 tested on CIFAR10 TestSet", report]

@@ -1,4 +1,4 @@
-BeginTestSection["ClassificationBenchmark"]
+BeginTestSection["ClassificationBenchmark"];
 
 
 (*Dependency Check*)

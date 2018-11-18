@@ -206,9 +206,9 @@
         }
     ],
     "Image": {
-        "Classification Curve.png": "https://i.loli.net/2018/11/17/5bf021480f2eb.png",
-        "High Precision Classification Curve.png": "https://i.loli.net/2018/11/17/5bf02148da6f8.png",
-        "Accuracy Rejection Curve.png": "https://i.loli.net/2018/11/17/5bf0214b8b2b2.png",
-        "ConfusionMatrix.png": "https://i.loli.net/2018/11/17/5bf0214b8cf8b.png"
+        "Classification Curve.png": "https://i.loli.net/2018/11/18/5bf15f5518d08.png",
+        "High Precision Classification Curve.png": "https://i.loli.net/2018/11/18/5bf15f555eaa4.png",
+        "Accuracy Rejection Curve.png": "https://i.loli.net/2018/11/18/5bf15f55a304a.png",
+        "ConfusionMatrix.png": "https://i.loli.net/2018/11/18/5bf15f570503b.png"
     }
 }

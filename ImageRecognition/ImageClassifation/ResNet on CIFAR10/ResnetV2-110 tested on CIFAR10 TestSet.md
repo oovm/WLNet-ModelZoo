@@ -22,9 +22,9 @@ Automatically generated on Sun 18 Nov 2018 20:31:59
 
 
 ## Accuracy Curve
-![Classification Curve.png](https://i.loli.net/2018/11/17/5bf021480f2eb.png)
+![Classification Curve.png](https://i.loli.net/2018/11/18/5bf15f5518d08.png)
 
-![High Precision Classification Curve.png](https://i.loli.net/2018/11/17/5bf02148da6f8.png)
+![High Precision Classification Curve.png](https://i.loli.net/2018/11/18/5bf15f555eaa4.png)
 
 ## Main Indicator
   - Top-1: **95.2700%**
@@ -41,7 +41,7 @@ Automatically generated on Sun 18 Nov 2018 20:31:59
   - CohenKappa: **0.947444**
   - RejectionRate: **0.00000%**
 
-![Accuracy Rejection Curve.png](https://i.loli.net/2018/11/17/5bf0214b8b2b2.png)
+![Accuracy Rejection Curve.png](https://i.loli.net/2018/11/18/5bf15f55a304a.png)
 
 ## Class Indicator
 | Class | Count | TPRate | TNRate | FPRate | FNRate | F1Score |
@@ -58,7 +58,7 @@ Automatically generated on Sun 18 Nov 2018 20:31:59
 | truck | 1000 | 96.3999% | 99.7555% | 0.24444% | 3.59999% | 0.97079 |
 
 ## Hard Class
-![ConfusionMatrix.png](https://i.loli.net/2018/11/17/5bf0214b8cf8b.png)
+![ConfusionMatrix.png](https://i.loli.net/2018/11/18/5bf15f570503b.png)
 
 ## Evaluation Report
 | Index | TestID | Result | Time | MemoryChange |

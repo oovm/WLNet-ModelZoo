@@ -128,10 +128,10 @@ test = TestReport[name <> ".mt"]
 
 
 upload = ImportString["\
-![High Precision Classification Curve.png](https://i.loli.net/2018/11/18/5bf15bdfd66aa.png)
-![Accuracy Rejection Curve.png](https://i.loli.net/2018/11/18/5bf15be0a79b3.png)
-![Classification Curve.png](https://i.loli.net/2018/11/18/5bf15be12b85b.png)
-![ConfusionMatrix.png](https://i.loli.net/2018/11/18/5bf15be16ea13.png)
+![High Precision Classification Curve.png](https://i.loli.net/2018/11/18/5bf15f555eaa4.png)
+![Accuracy Rejection Curve.png](https://i.loli.net/2018/11/18/5bf15f55a304a.png)
+![Classification Curve.png](https://i.loli.net/2018/11/18/5bf15f5518d08.png)
+![ConfusionMatrix.png](https://i.loli.net/2018/11/18/5bf15f570503b.png)
 ", "Data"];
 report = ClassificationBenchmark[analyze,
 	DeepMath`Tools`TestReportAnalyze[test],
