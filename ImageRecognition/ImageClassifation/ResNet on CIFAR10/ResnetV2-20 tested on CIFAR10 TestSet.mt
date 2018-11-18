@@ -1,14 +1,24 @@
-BeginTestSection["ClassificationBenchmark"]
+BeginTestSection["ClassificationBenchmark"];
 
-(*Evaluation*)
+
+(*Dependency Check*)
+VerificationTest[
+	<< MachineLearning`;
+	<< NeuralNetworks`;
+	<< MXNetLink`;
+	<< DeepMath`;,
+	Null, TestID -> "Dependency Check"
+];
+
+
+(*Pre-define*)
 VerificationTest[
 	netName = "ResnetV2-20 trained on CIFAR10";
-	testName = "ResnetV2-20 tested on CIFAR10 TestSet";
 	model := model = Import[netName <> ".WXF"];
 	data := data = Import@"D:\\WLNet-Data-Set\\CIFAR10\\CIFAR10 TestData.MX";
-	cm := cm = ClassifierMeasurements[model, data, TargetDevice -> "GPU"];
+	cm := cm = ClassificationBenchmark[model, data];
 	dump := dump = DumpSave[".cache.mx", cm];
-	analyze := analyze = ClassifyAnalyze[<|"Name" -> testName, "Result" -> cm, "Net" -> model|>];,
+	analyze := analyze = ClassificationBenchmark[cm, netName];,
 	Null, TestID -> "Pre-define"
 ];
 
