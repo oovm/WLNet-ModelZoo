@@ -120,5 +120,25 @@ Export["WRN40-8 trained on CIFAR10.WXF", mainNet]
 (*Test*)
 
 
-test = TestReport["WRN40-8 trained on CIFAR10.mt"]
-ClassifyAnalyzeExport[analyze, test]
+<< MachineLearning`;<< NeuralNetworks`;<< MXNetLink`;<< DeepMath`;
+SetDirectory@NotebookDirectory[];DateString[]
+netName = "WRN40-8 trained on CIFAR10";
+name = "WRN40-8 tested on CIFAR10 TestSet"
+test = TestReport[name <> ".mt"]
+
+
+(* ::Subchapter:: *)
+(*Report*)
+
+
+upload = ImportString["\
+![Classification Curve.png](https://i.loli.net/2018/11/19/5bf24181d8906.png)
+![High Precision Classification Curve.png](https://i.loli.net/2018/11/19/5bf24182219a3.png)
+![Accuracy Rejection Curve.png](https://i.loli.net/2018/11/19/5bf24182612a1.png)
+![ConfusionMatrix.png](https://i.loli.net/2018/11/19/5bf2418262dda.png)
+", "Data"];
+report = ClassificationBenchmark[analyze,
+	DeepMath`Tools`TestReportAnalyze[test],
+	"Image" -> AssociationThread[Rule @@ Transpose[StringSplit[#, {"![", "](", ")"}]& /@ upload]]
+];
+ClassificationBenchmark[name, report]
