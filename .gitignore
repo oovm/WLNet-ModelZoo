@@ -13,7 +13,6 @@ report.m
 .link/*/*.npz
 .link/*/*.pkl
 .link/*/*.json
-.link/*/*.txt
 
 # models
 *.WLNet
@@ -24,6 +23,9 @@ report.m
 *.h5
 *.hdf5
 *.pth
+*.pb
+*.pbtxt
+*.txt
 
 # Notebook
 *.nb
