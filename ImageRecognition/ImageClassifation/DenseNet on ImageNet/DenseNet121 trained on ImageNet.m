@@ -76,8 +76,8 @@ $getBlock2 = NetChain@{
 
 
 extractor = NetChain[{
-	getCN2["0", 3, 2], 
-	getBN2["0"], 
+	getCN2["0", 3, 2],
+	getBN2["0"],
 	ElementwiseLayer["ReLU"],
 	PoolingLayer[{3, 3}, "Stride" -> 2, "PaddingSize" -> 1],
 	NetChain@Table[getBlock[1, i], {i, 0, 10, 2}],
@@ -88,11 +88,11 @@ extractor = NetChain[{
 	getBlock2[3],
 	NetChain@Table[getBlock[4, i], {i, 0, 30, 2}],
 	$getBlock2
-}]
+}];
 classifier = LinearLayer[1000,
-		"Weights" -> params["arg:densenet0_dense0_weight"],
-		"Biases" -> params["arg:densenet0_dense0_bias"]
-	];
+	"Weights" -> params["arg:densenet0_dense0_weight"],
+	"Biases" -> params["arg:densenet0_dense0_bias"]
+];
 mainNet = NetChain[{
 	"Extractor" -> extractor,
 	"Classifier" -> classifier,
