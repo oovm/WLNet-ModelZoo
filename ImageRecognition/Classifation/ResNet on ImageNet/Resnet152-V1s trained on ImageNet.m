@@ -43,8 +43,8 @@ getBN[name_String] := BatchNormalizationLayer[
 	"MovingMean" -> params["aux:resnetv1s_" <> name <> "_running_mean"],
 	"MovingVariance" -> params["aux:resnetv1s_" <> name <> "_running_var"]
 ];
-getBlock[i_] := NetChain[{
-	getCN["conv" <> ToString@i, 1, 2],
+getBlock[i_, j_] := NetChain[{
+	getCN["conv" <> ToString@i, 1, j],
 	getBN["batchnorm" <> ToString@i],
 	ElementwiseLayer["ReLU"]
 }];
