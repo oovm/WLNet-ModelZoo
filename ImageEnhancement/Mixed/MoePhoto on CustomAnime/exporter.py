@@ -3,12 +3,12 @@ import torch
 import wolframclient.serializers as wxf
 
 '''
+import torch.onnx as onnx
 form .python.models import * 
-model = Net4x()
-model.load_state_dict(torch.load('./model/a4/model_new.pth'))
-model.state_dict()
+model = Net4x().cuda()
+model.load_state_dict(torch.load('./model/a4/model_new.pth')).cuda()
 dummy_input = Variable(torch.randn(1, 1, 36, 36)).cuda()
-torch.onnx.export(model, dummy_input, "a4.onnx", verbose=True)
+onnx.export(model, dummy_input, "a4.onnx", verbose=True)
 '''
 
 
