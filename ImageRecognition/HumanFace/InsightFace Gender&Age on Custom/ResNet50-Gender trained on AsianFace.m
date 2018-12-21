@@ -8,7 +8,7 @@ DateString[]
 
 
 (* ::Subitem:: *)
-(*Fri 21 Dec 2018 15:18:10*)
+(*Fri 21 Dec 2018 15:10:07*)
 
 
 (* ::Subchapter:: *)
@@ -23,62 +23,68 @@ params = NDArrayImport["model-0000.params"];
 
 
 encoder = NetEncoder[{"Image", 112}]
-decoder = NetDecoder[{"Class", {"Man", "Woman"}}]
+decoder = NetDecoder[{"Class", {"Male", "Female"}}]
 
 
-(* ::Subchapter:: *)
+(* ::Subchapter::Closed:: *)
 (*Pre-defined Structure*)
 
 
+prefix = "gender";
 ReLU = ElementwiseLayer["ReLU"];
+getCN[name_String, p_ : 1, s_ : 1] := ConvolutionLayer[
+	"Weights" -> params["arg:" <> prefix <> "_" <> name <> "_weight"],
+	"Biases" -> None, "PaddingSize" -> p, "Stride" -> s
+];
+getBN[name_String] := BatchNormalizationLayer[
+	"Epsilon" -> 1*^-5,
+	"Beta" -> params["arg:" <> prefix <> "_" <> name <> "_beta"],
+	"Gamma" -> params["arg:" <> prefix <> "_" <> name <> "_gamma"],
+	"MovingMean" -> params["aux:" <> prefix <> "_" <> name <> "_running_mean"],
+	"MovingVariance" -> params["aux:" <> prefix <> "_" <> name <> "_running_var"]
+];
 getBlock[ii_, j_] := Block[
 	{i = ToString@ii, path},
 	path = NetChain2Graph@NetChain[{
-		getCN["stage" <> i <> "_conv" <> ToString[j], 1, 1],
-		getBN["stage" <> i <> "_batchnorm" <> ToString[j]],
+		getCN["resnet0_stage" <> i <> "_conv" <> ToString[j], 1, 1],
+		getBN["resnet0_stage" <> i <> "_batchnorm" <> ToString[j]],
 		ReLU,
-		getCN["stage" <> i <> "_conv" <> ToString[j + 1], 1, 1],
-		getBN["stage" <> i <> "_batchnorm" <> ToString[j + 1]]
+		getCN["resnet0_stage" <> i <> "_conv" <> ToString[j + 1], 1, 1],
+		getBN["resnet0_stage" <> i <> "_batchnorm" <> ToString[j + 1]]
 	}];
 	NetFlatten@NetGraph[{NetMerge@path, ReLU}, {1 -> 2}]
-]
+];
 getBlock2[ii_] := Block[
 	{i = ToString@ii, lhs, rhs},
 	lhs = NetChain2Graph@NetChain[{
-		getCN["stage" <> i <> "_conv2", 0, 2],
-		getBN["stage" <> i <> "_batchnorm2"]
+		getCN["resnet0_stage" <> i <> "_conv2", 0, 2],
+		getBN["resnet0_stage" <> i <> "_batchnorm2"]
 	}];
 	rhs = NetChain2Graph@NetChain[{
-		getCN["stage" <> i <> "_conv0", 1, 1],
-		getBN["stage" <> i <> "_batchnorm0"],
+		getCN["resnet0_stage" <> i <> "_conv0", 1, 1],
+		getBN["resnet0_stage" <> i <> "_batchnorm0"],
 		ReLU,
-		getCN["stage" <> i <> "_conv1", 1, 2],
-		getBN["stage" <> i <> "_batchnorm1"]
+		getCN["resnet0_stage" <> i <> "_conv1", 1, 2],
+		getBN["resnet0_stage" <> i <> "_batchnorm1"]
 	}];
 	NetFlatten@NetGraph[{NetMerge[{lhs, rhs}], ReLU}, {1 -> 2}]
-]
+];
 
 
 head = {
 	BatchNormalizationLayer[
 		"Epsilon" -> 1*^-5,
-		"Beta" -> params["arg:gender_resnet0_batchnorm0" <> "_beta"],
-		"Gamma" -> params["arg:gender_resnet0_batchnorm0" <> "_gamma"],
-		"MovingMean" -> Normal@params["aux:gender_resnet0_batchnorm0" <> "_running_mean"] / 255,
-		"MovingVariance" -> Normal@params["aux:gender_resnet0_batchnorm0" <> "_running_var"] / 255^2
+		"Beta" -> params["arg:age_resnet0_batchnorm0" <> "_beta"],
+		"Gamma" -> params["arg:age_resnet0_batchnorm0" <> "_gamma"],
+		"MovingMean" -> Normal@params["aux:age_resnet0_batchnorm0" <> "_running_mean"] / 255,
+		"MovingVariance" -> Normal@params["aux:age_resnet0_batchnorm0" <> "_running_var"] / 255^2
 	],
-	getCN["conv0", 1, 1],
-	getBN["batchnorm1"],
+	getCN["resnet0_conv0", 1, 1],
+	getBN["resnet0_batchnorm1"],
 	ReLU
 };
 tail = {
-	BatchNormalizationLayer[
-		"Epsilon" -> 1*^-5,
-		"Beta" -> params["arg:gender_embeddingblock0_batchnorm0" <> "_beta"],
-		"Gamma" -> params["arg:gender_embeddingblock0_batchnorm0" <> "_gamma"],
-		"MovingMean" -> params["aux:gender_embeddingblock0_batchnorm0" <> "_running_mean"],
-		"MovingVariance" -> params["aux:gender_embeddingblock0_batchnorm0" <> "_running_var"]
-	],
+	getBN["embeddingblock0_batchnorm0"],
 	ReLU,
 	AggregationLayer@Mean
 };
@@ -99,13 +105,15 @@ extractor = NetChain[{
 	getBlock2[4],
 	Table[getBlock[4, i], {i, 3, 5, 2}],
 	tail
-}]
+}];
 classifier = {
 	LinearLayer[2,
-		"Weights" -> params["arg:gender_dense0" <> "_weight"],
-		"Biases" -> params["arg:gender_dense0" <> "_bias"]
+		"Weights" -> params["arg:" <> prefix <> "_dense0" <> "_weight"],
+		"Biases" -> params["arg:" <> prefix <> "_dense0" <> "_bias"]
 	]
 };
+
+
 mainNet = NetChain[{
 	"Extractor" -> extractor,
 	"Classifier" -> classifier,
@@ -120,4 +128,4 @@ mainNet = NetChain[{
 (*Export Model*)
 
 
-Export["ResNet50-Gender trained on AsianFace.WXF", mainNet]
+Export["ResNet50-" <> Capitalize@prefix <> " trained on AsianFace.WXF", mainNet]
