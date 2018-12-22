@@ -4,7 +4,7 @@
 
 - trans to net app
 - threshold=0.25
-
+- softmax on rating
 
 ## Source
 
