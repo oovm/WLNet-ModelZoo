@@ -46,12 +46,18 @@ getBlock[i_, j_] := NetChain@{
 	getCN["conv" <> ToString[i] <> "_" <> ToString@j, 1, 1],
 	ReLU
 };
+getBlock2[a_, b_] := NetChain[
+	{ PartLayer[a ;; b], ElementwiseLayer[Clip]},
+	"Input" -> 1539,
+	"Output" -> NetDecoder[{"Class", Capitalize@tags[[a ;; b]]}]
+];
 
 
 (* ::Subchapter:: *)
 (*Main*)
 
 
+input = NetEncoder[{"Image", 224, "MeanImage" -> meanImage, "VarianceImage" -> 1 / 255}];
 extractor = NetChain[{
 	Table[getBlock[1, j], {j, 1}],
 	Pooling,
@@ -65,18 +71,34 @@ extractor = NetChain[{
 	Pooling,
 	Table[getBlock[6, j], {j, 3}]
 },
-	"Input" -> NetEncoder[{"Image", 224, "MeanImage" -> meanImage}]
+	"Input" -> input
 ];
 classifier = {
 	DropoutLayer[0.5],
 	getBlock[6, 4],
 	AggregationLayer@Mean
 };
-mainNet = NetChain[{
-	"Extractor" -> extractor,
-	"Classifier" -> classifier
-}
+general = getBlock2[1, 512];
+character = getBlock2[513, 1024];
+copyright = getBlock2[1025, 1536];
+rating = getBlock2[1537, 1539];
 
+mainNet = NetGraph[{
+	"Extractor" -> extractor,
+	"Classifier" -> classifier,
+	"General" -> general,
+	"Character" -> character,
+	"Copyright" -> copyright,
+	"Rating" -> rating
+},
+	{
+		"Extractor" -> "Classifier" -> {
+			"General" -> NetPort["General"],
+			"Character" -> NetPort["Character"],
+			"Copyright" -> NetPort["Copyright"],
+			"Rating" -> NetPort["Rating"]
+		}
+	}
 ]
 
 
@@ -84,4 +106,4 @@ mainNet = NetChain[{
 (*Export Model*)
 
 
-Export["Illustration2Vec trained on Danbooru.WXF", mainNet]
+Export["Illustration2Vec trained on Danbooru.WLNet", mainNet]
