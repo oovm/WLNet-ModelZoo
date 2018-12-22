@@ -1,17 +1,14 @@
-import re
+import gzip
+import shutil
 
 import caffe2.proto.caffe2_pb2 as caffe
 import numpy as npy
 import wolframclient.serializers as wxf
 
 
-def layer_iter(layers):
-    '''add layer name when confused'''
-    for layer in layers:
-        layer_name = re.sub('[-/]', '_', layer.name)
-        layer_type = layer.type
-        layer_blobs = layer.blobs
-        yield (layer_name, layer_type, layer_blobs)
+def npy2wxf(path):
+    data = npy.load(path)
+    wxf.export(data, path + '.wxf', target_format='wxf')
 
 
 def caffe2wxf(path):
@@ -31,3 +28,9 @@ def caffe2wxf(path):
 
     add_node(model.layer)
     wxf.export(data, path + '.wxf', target_format='wxf')
+
+
+shutil.copyfileobj(gzip.open('tag_list.json.gz', 'rb'), open('tag_list.json', 'wb'))
+npy2wxf("image_mean.npy")
+caffe2wxf("illust2vec_ver200.caffemodel")
+caffe2wxf("illust2vec_tag_ver200.caffemodel")
