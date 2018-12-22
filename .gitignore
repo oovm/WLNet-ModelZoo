@@ -5,14 +5,17 @@
 # Cache
 *.cpy
 *dump
-*.mx
 report.m
 
-# Raw Models
-.link/*/*.npy
-.link/*/*.npz
-.link/*/*.pkl
-.link/*/*.json
+# Compress
+*.tar
+*.gz
+
+# Binary
+*.npy
+*.npz
+*.pkl
+
 
 # models
 *.WLNet
@@ -26,9 +29,15 @@ report.m
 *.pb
 *.pbtxt
 *.txt
+*.mx
+*.app
+*.prototxt
+*.caffemodel
+
 
 # Notebook
 *.nb
+*.jupyter
 
 # Picture
 *.png
