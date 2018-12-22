@@ -2,7 +2,7 @@
 
 ### TODO
 
-- trans to  net app
+- trans to net app
 - threshold=0.25
 
 
