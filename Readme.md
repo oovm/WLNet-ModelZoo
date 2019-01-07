@@ -26,7 +26,7 @@ If the model is more complicated, then the official function is a bit stretched.
 This is the extended model using [DeepMath](https://github.com/Moe-Net/DeepMathFantasy), you must install `DeepMath` then you can use them normally.
 
 ```Mathematica
-PacletInstall@"https://github.com/Moe-Net/DeepMathFantasy/releases/download/v0.1.x/DeepMath-0.1.0.paclet";
+PacletInstall@"https://github.com/Moe-Net/DeepMathFantasy/releases/download/v0.1.0/DeepMath-0.1.0.paclet";
 << DeepMath`;
 DeepMath`Tools`LayersRegister[];
 ```
