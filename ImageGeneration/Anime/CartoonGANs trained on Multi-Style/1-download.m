@@ -28,3 +28,7 @@ CheckDownload[
 	"https://github.com/penny4860/Keras-CartoonGan/raw/master/params/Shinkai.h5",
 	"Shinkai.h5"
 ];
+CheckDownload[
+	"https://github.com/penny4860/Keras-CartoonGan/raw/master/sample_in/in1.png",
+	"Test.png"
+];

@@ -92,7 +92,6 @@ mainNet = NetChain[{
 	getCN["/deconv3/deconv3", 1, 3, 2],
 	LogisticSigmoid
 },
-	"Input" -> "Image",
 	"Output" -> "Image"
 ]
 
@@ -101,7 +100,7 @@ mainNet = NetChain[{
 (*Testing*)
 
 
-img = ImageResize[ExampleData[{"TestImage", "Mandrill"}], 256]
+img = Import["Test.png"]
 newNet = NetReplacePart[mainNet, "Input" -> NetEncoder[{"Image", ImageDimensions@img}]];
 newNet[img, TargetDevice -> "GPU"]
 
@@ -110,4 +109,9 @@ newNet[img, TargetDevice -> "GPU"]
 (*Export Model*)
 
 
-Export["CartoonGAN trained on " <> $name <> " Style.WLNet", mainNet]
+Export[
+	"CartoonGAN trained on " <> $name <> " Style.MAT",
+	<|"Main" -> mainNet|>,
+	"WXF",
+	PerformanceGoal -> "Speed"
+]
