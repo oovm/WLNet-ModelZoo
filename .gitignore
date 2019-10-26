@@ -6,6 +6,7 @@
 *.cpy
 *dump
 report.m
+/未分类/
 
 # Compress
 *.tar
@@ -15,12 +16,14 @@ report.m
 *.npy
 *.npz
 *.pkl
+*.zip
 
 
 # models
 *.WLNet
 *.WMLF
 *.WXF
+
 *.params
 *-symbol.json
 *.h5
@@ -28,12 +31,14 @@ report.m
 *.pth
 *.pb
 *.pbtxt
+*.ckpt*
 *.txt
-*.mx
 *.app
 *.prototxt
 *.caffemodel
-
+*.MX
+*.MXNet
+*.mat
 
 # Notebook
 *.nb

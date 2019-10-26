@@ -1,12 +1,20 @@
 (* ::Package:: *)
 
+(* ::Subchapter:: *)
+(*Import Weights*)
+
+
 SetDirectory@NotebookDirectory[];
-
-
+Clear["`*"];
 << DeepMath`;
 DeepMath`NetMerge;
 
+
 params = Import["resnet50.pth.wxf"];
+
+
+(* ::Subchapter:: *)
+(*Pre-defined Structure*)
 
 
 $NCHW = TransposeLayer[{1<->4, 2<->3, 3<->4}];
@@ -22,7 +30,7 @@ getBN[name_] := BatchNormalizationLayer[
 	"MovingVariance" -> params[name <> ".running_var"],
 	"Epsilon" -> 0.00001,
 	"Momentum" -> 0.9
-]
+];
 getLinear[name_, out_] := LinearLayer[
 	out,
 	"Weights" -> params[name <> ".weight"],
@@ -42,7 +50,7 @@ getBlock[name_] := GeneralUtilities`Scope[
 		getBN[name <> ".bn3"]
 	};
 	NetFlatten@NetChain@{NetMerge[path, Plus], Ramp}
-]
+];
 getBlock2[name_, s_ : 2] := GeneralUtilities`Scope[
 	left = NetChain@{
 		getCN[name <> ".conv1", 1, 0],
@@ -59,7 +67,11 @@ getBlock2[name_, s_ : 2] := GeneralUtilities`Scope[
 		getBN[name <> ".downsample.1"]
 	};
 	NetFlatten@NetChain@{NetMerge[{left, right}, Plus], Ramp}
-]
+];
+
+
+(* ::Subchapter:: *)
+(*Main*)
 
 
 encoder = NetEncoder[{
@@ -103,6 +115,9 @@ mainNet = NetChain[
 ]
 
 
+(* ::Subchapter:: *)
+(*Testing*)
+
 
 image = Import["Test.jpg"]
 mainNet = NetReplacePart[mainNet, {"Input" -> encoder, "Output" -> decoder}];
@@ -113,9 +128,13 @@ Take[ReverseSort@Select[result, # > 0.3&], UpTo[10]] // Dataset
 NetInformation[mainNet, "LayerTypeCounts"] // ReverseSort // Dataset
 
 
+(* ::Subchapter:: *)
+(*Export Model*)
+
+
 export = <|
 	"Main" -> mainNet,
 	"Encoder" -> encoder,
 	"Decoder" -> decoder
 |>;
-Export["ResNet-53 trained on Danbooru2018.MX", export, "WXF", PerformanceGoal -> "Speed"]
+Export["ResNet-53 trained on Danbooru2018.MAT", export, "WXF", PerformanceGoal -> "Speed"]

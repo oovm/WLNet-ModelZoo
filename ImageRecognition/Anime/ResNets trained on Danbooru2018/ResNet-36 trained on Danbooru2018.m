@@ -132,4 +132,4 @@ export = <|
 	"Encoder" -> encoder,
 	"Decoder" -> decoder
 |>;
-Export["ResNet-36 trained on Danbooru2018.MXNet", export, "WXF", PerformanceGoal -> "Speed"]
+Export["ResNet-36 trained on Danbooru2018.MAT", export, "WXF", PerformanceGoal -> "Speed"]

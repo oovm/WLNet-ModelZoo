@@ -17,9 +17,9 @@
 #### Output
 
 ```
-- ResNet-20 trained on Danbooru2018.MXNet
-- ResNet-36 trained on Danbooru2018.MXNet
-- ResNet-53 trained on Danbooru2018.MXNet
+- ResNet-20 trained on Danbooru2018.MAT
+- ResNet-36 trained on Danbooru2018.MAT
+- ResNet-53 trained on Danbooru2018.MAT
 ```
 
 ## Reference
