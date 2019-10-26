@@ -1,4 +1,4 @@
-# ResNets trained on Danbooru2018
+# CartoonGANs trained on Multi-Style
 
 #### Input
 
@@ -24,4 +24,11 @@
 
 ## Reference
 
-- Link: [RF5/danbooru-pretrained](https://github.com/RF5/danbooru-pretrained)
+- Link: [penny4860/Keras-CartoonGan](https://github.com/penny4860/Keras-CartoonGan)
+
+
+
+
+
+
+
