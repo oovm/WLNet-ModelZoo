@@ -14,10 +14,10 @@
 #### Output
 
 ```
-- CartoonGAN trained on Hayao Style.MAT
-- CartoonGAN trained on Hosoda Style.MAT
-- CartoonGAN trained on Paprika Style.MAT
-- CartoonGAN trained on Shinkai Style.MAT
+- ComixGAN Comic Style Transfer Alpha.MAT
+- ComixGAN Comic Style Transfer Beta.MAT
+- ComixGAN Comic Style Transfer Gamma.MAT
+- ComixGAN Comic Style Transfer Delta.MAT
 ```
 
 ## Reference
