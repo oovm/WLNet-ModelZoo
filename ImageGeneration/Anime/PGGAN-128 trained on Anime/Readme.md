@@ -1,23 +1,10 @@
 ## PGGAN-128 trained on Anime
 
-![](https://i.loli.net/2019/10/21/JHRSGwf6DA4p1rj.png)
-
 ## Source
 
-need clone need download
+### Input
 
-```yaml
-download: 
-```
-
-
-# CartoonGANs trained on Multi-Style
-
-#### Input
-
-- Shinkai 新海诚的《君の名は。》，
-- Paprika 金敏的《パプリカ》，
-- Hayao 宫崎骏的《風立ちぬ》。
+- Need git, need manual download
 
 ```
 - /progressive_growing_of_gans/
@@ -25,19 +12,20 @@ download:
     - 2-export.py
 ```
 
-- Need git, need download
-
-#### Output
+### Output
 
 ```
-- CartoonGAN trained on Hayao Style.MAT
-- CartoonGAN trained on Hosoda Style.MAT
-- CartoonGAN trained on Paprika Style.MAT
-- CartoonGAN trained on Shinkai Style.MAT
+- PGGAN-128 trained on Anime.MAT
+- preview.jpg
+- preview-2.jpg
 ```
+
+### Preview
+
+![preview](https://user-images.githubusercontent.com/17541209/67645076-7d3ffc00-f961-11e9-9128-dc9507815493.jpg)
+![preview-2](https://user-images.githubusercontent.com/17541209/67645078-7d3ffc00-f961-11e9-9692-e03418096e20.jpg)
 
 ## Reference
 
-- Link: [penny4860/Keras-CartoonGan](https://github.com/penny4860/Keras-CartoonGan)
-
+- Link: [gwern/Faces](https://www.gwern.net/Faces#progan)
 

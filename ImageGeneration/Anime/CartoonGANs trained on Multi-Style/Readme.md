@@ -2,14 +2,16 @@
 
 #### Input
 
+- Shinkai 新海诚的《君の名は。》，
+- Paprika 金敏的《パプリカ》，
+- Hayao 宫崎骏的《風立ちぬ》。
+
 ```
-- class_names_100.ckpt.json
-- class_names_500.ckpt.json
-- class_names_6000.ckpt.json
-- resnet18.pth
-- resnet34.pth
-- resnet50.pth
-- Test.jpg
+- Hayao.h5
+- Hosoda.h5
+- Paprika.h5
+- Shinkai.h5
+- Test.png
 ```
 
 - No plugin, No git
@@ -17,18 +19,14 @@
 #### Output
 
 ```
-- ResNet-20 trained on Danbooru2018.MAT
-- ResNet-36 trained on Danbooru2018.MAT
-- ResNet-53 trained on Danbooru2018.MAT
+- CartoonGAN trained on Hayao Style.MAT
+- CartoonGAN trained on Hosoda Style.MAT
+- CartoonGAN trained on Paprika Style.MAT
+- CartoonGAN trained on Shinkai Style.MAT
 ```
 
 ## Reference
 
 - Link: [penny4860/Keras-CartoonGan](https://github.com/penny4860/Keras-CartoonGan)
-
-
-
-
-
 
 
