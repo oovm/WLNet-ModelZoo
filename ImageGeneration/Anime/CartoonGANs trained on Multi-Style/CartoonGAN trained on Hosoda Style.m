@@ -111,7 +111,6 @@ newNet[img, TargetDevice -> "GPU"]
 
 Export[
 	"CartoonGAN trained on " <> $name <> " Style.MAT",
-	<|"Main" -> mainNet|>,
-	"WXF",
+	mainNet, "WXF",
 	PerformanceGoal -> "Speed"
 ]

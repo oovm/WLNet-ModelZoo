@@ -96,17 +96,29 @@ mainNet = NetChain[{
 
 
 (* ::Subchapter:: *)
-(*Testing*)
-
-
-inBatch = RandomVariate[NormalDistribution[0, 1 / 2], {25, 512}];
-outBatch = mainNet[inBatch, TargetDevice -> "GPU"];
-(*outBatch//Multicolumn*)
-ImageResize[outBatch // ImageCollage, 512]
-
-
-(* ::Subchapter:: *)
 (*Export Model*)
 
 
 Export["PGGAN-256 trained on Holo Faces.MAT", mainNet, "WXF", PerformanceGoal -> "Speed"]
+
+
+(* ::Subchapter:: *)
+(*Testing*)
+
+
+SetDirectory@NotebookDirectory[];
+mainNet = Import["PGGAN-256 trained on Holo Faces.MAT", "WXF"];
+
+
+SeedRandom[42];
+inBatch = RandomVariate[NormalDistribution[], {200, 512}];
+outBatch = mainNet[inBatch, TargetDevice -> "GPU"];
+MapIndexed[First@#2 -> #1&, outBatch];
+
+
+(* ::Code::Initialization::Bold:: *)
+pick = {
+	1, 2, 3, 5, 6, 7, 8, 9, 21, 22, 27, 28, 30, 32, 33, 36, 37, 38, 39, 40, 41, 43, 44, 47, 48, 54, 55, 56, 58, 59, 63, 64, 66, 67, 68, 69, 70, 71, 74, 75, 76, 77, 78, 79, 80, 82, 83, 84, 85, 87, 88, 89, 90, 91, 92, 96, 97, 99, 100,
+	101, 102, 103, 104, 105, 109, 118, 119, 120, 121, 123, 126, 131, 133, 136, 137, 138, 139, 140, 141, 142, 146, 147, 148, 149, 151, 175, 176, 177, 179, 180, 183, 185, 186, 187, 188
+};
+Export["preview.jpg", ImageCollage[RandomSample[outBatch[[pick]], 25]]]

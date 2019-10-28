@@ -31,6 +31,8 @@ getIN[name_] := NormalizationLayer[
 	"Scaling" -> params[ToString[name] <> "/gamma:0"],
 	"Epsilon" -> 1*^-9
 ];
+
+
 getBlock[i_] := NetFlatten@NetGraph[
 	{
 		{
@@ -111,7 +113,6 @@ newNet[img, TargetDevice -> "GPU"]
 
 Export[
 	"CartoonGAN trained on " <> $name <> " Style.MAT",
-	<|"Main" -> mainNet|>,
-	"WXF",
+	mainNet, "WXF",
 	PerformanceGoal -> "Speed"
 ]
